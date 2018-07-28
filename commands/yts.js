@@ -1,3 +1,4 @@
+const ytdl = require('ytdl-core');
 const search = require('youtube-search');
 const { youtubetoken } = require('../secrets.json');
 
@@ -5,16 +6,31 @@ module.exports = {
 	name: 'yts',
 	description: 'Youtube Search',
 	execute(client, message, args) {
-
+        
+        const fullString = args.join(' ');
+        
         const opts = {
-            maxResults: 10,
+            maxResults: 1,
             key: youtubetoken,
         };
 
-        search(args[0], opts, function(err, results) {
+        search(fullString, opts, function(err, results) {
             if(err) return console.log(err);
 
-            console.dir(results);
+            message.channel.send("This is what I found: " + results[0].link);
+            const { voiceChannel } = message.member;
+            if(!voiceChannel) {
+                return message.reply('please join a voice channel first');
+            }
+            voiceChannel.join().then(connection => {
+                const stream = ytdl(results[0].link, { filter: 'audioonly' });
+                const dispatcher = connection.playStream(stream);
+    
+                dispatcher.on('end', () => {
+                    voiceChannel.leave();
+                });
+            });
+            console.dir(results[0].link);
         })
 		
 		message.delete(1000);
