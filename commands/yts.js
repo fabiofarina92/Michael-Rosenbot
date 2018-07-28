@@ -20,6 +20,7 @@ module.exports = {
             message.channel.send("This is what I found: " + results[0].link);
             const { voiceChannel } = message.member;
             if(!voiceChannel) {
+                // Need to be in a channel before this works
                 return message.reply('please join a voice channel first');
             }
             voiceChannel.join().then(connection => {
