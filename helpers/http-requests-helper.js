@@ -3,7 +3,7 @@ const { hassMediaExtractor, hassChromeCast } = require('../secrets.json');
 
 module.exports = {
 
-    sendMediaRequest(videoUrl) {
+    sendHassMediaRequest(videoUrl) {
         const url = hassMediaExtractor;
 
         const formData = {
@@ -30,6 +30,20 @@ module.exports = {
 			console.log('statusCode: ', statusCode)
 			console.log('body: ', body)
 		})
+    },
+    
+    sendStandardRequest(endpoint, callback) {
+        request(endpoint, function(error, response, body) {
+			console.log('error:', error); // Print the error if one occurred
+			console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+
+			const content = JSON.parse(body);
+			console.log('body:', content); // Print the HTML for the Google homepage.
+            console.log('string body', content.message);
+            
+            callback(content);
+			
+		});
     }
 
 }

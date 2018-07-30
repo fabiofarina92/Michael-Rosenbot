@@ -1,5 +1,5 @@
 const ytdl = require('ytdl-core');
-const search = require('youtube-search');
+const youtubeHelper = require('../helpers/youtube-helper');
 const { youtubetoken } = require('../secrets.json');
 
 module.exports = {
@@ -9,29 +9,22 @@ module.exports = {
         
         const fullString = args.join(' ');
         
-        const opts = {
-            maxResults: 1,
-            key: youtubetoken,
-        };
-
-        search(fullString, opts, function(err, results) {
-            if(err) return console.log(err);
-
-            message.channel.send("This is what I found: " + results[0].link);
+        youtubeHelper.searchYoutube(fullString, message, function(response) {     
             const { voiceChannel } = message.member;
             if(!voiceChannel) {
                 return message.reply('please join a voice channel first');
             }
             voiceChannel.join().then(connection => {
-                const stream = ytdl(results[0].link, { filter: 'audioonly' });
+                console.log('Playing: ' + response);
+                const stream = ytdl(response, { filter: 'audioonly' });
                 const dispatcher = connection.playStream(stream);
     
                 dispatcher.on('end', () => {
                     voiceChannel.leave();
                 });
             });
-            console.dir(results[0].link);
-        })
+            console.dir(response);			
+        });
 		
 		message.delete(1000);
 	},

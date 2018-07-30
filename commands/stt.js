@@ -14,11 +14,10 @@ module.exports = {
 			const fullString = args.join(' ');
 			
 			youtubeHelper.searchYoutube(fullString, message, function(response) {
-				httpRequestsHelper.sendMediaRequest(response);
-				
+				httpRequestsHelper.sendHassMediaRequest(response);				
 			});
 		} else {			
-			httpRequestsHelper.sendMediaRequest(video);
+			httpRequestsHelper.sendHassMediaRequest(video);
 		}
 		
 		message.delete(1000);

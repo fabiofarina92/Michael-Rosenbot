@@ -3,6 +3,7 @@ const { youtubetoken } = require('../secrets.json');
 
 module.exports = {
     searchYoutube(description, message, callback) {
+        if(description == '') return;
         const opts = {
             maxResults: 1,
             key: youtubetoken,
