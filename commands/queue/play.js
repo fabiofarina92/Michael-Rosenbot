@@ -1,5 +1,5 @@
 const ytdl = require('ytdl-core');
-const youtubeHelper = require('../helpers/youtube-helper');
+const youtubeHelper = require('../../helpers/youtube-helper');
 
 module.exports = {
 	name: 'play',
