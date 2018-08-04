@@ -5,7 +5,7 @@ const { youtubetoken } = require('../secrets.json');
 module.exports = {
 	name: 'yts',
 	description: 'Youtube Search',
-	execute(client, message, args) {
+	execute(config, message, args) {
         
         const fullString = args.join(' ');
         

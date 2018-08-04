@@ -3,7 +3,7 @@ const ytdl = require('ytdl-core');
 module.exports = {
 	name: 'debug',
 	description: 'debug information',
-	execute(client, message, args) {
+	execute(config, message, args) {
 		const video = 'https://www.youtube.com/watch?v=CYqq9Ovz_9c';
 		message.delete(1000);
 		// console.log(client.channels.first().guild.name);

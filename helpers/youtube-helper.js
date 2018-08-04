@@ -11,9 +11,20 @@ module.exports = {
     
         search(description, opts, function(err, results) {
             if(err) return console.log(err);
-    
-            message.channel.send("This is what I found: " + results[0].link);
             callback(results[0].link);        
+        });
+    },
+
+    searchFullYoutube(description, message, callback) {
+        if(description == '') return;
+        const opts = {
+            maxResults: 1,
+            key: youtubetoken,
+        };
+    
+        search(description, opts, function(err, results) {
+            if(err) return console.log(err);
+            callback(results[0]);        
         });
     }
 }

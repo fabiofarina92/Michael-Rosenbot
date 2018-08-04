@@ -3,7 +3,7 @@ const ytdl = require('ytdl-core');
 module.exports = {
 	name: 'poll',
 	description: 'Multi option poll',
-	execute(client, message, args) {
+	execute(config, message, args) {
 
 		const fullString = args.join(' ');
 
@@ -21,12 +21,6 @@ module.exports = {
 
 			message.channel.send('The response to the question: ' + split[0] + ' is ' + split[Math.floor((Math.random() * split.length)) + 1], { tts: true });
 
-			// if(args[0] === undefined) {
-			// 	message.channel.send('This is a message', { tts: true });
-			// }
-			// else {
-			// 	message.channel.send(args.join(' '), { tts: true });
-			// }
 			voiceChannel.leave();
 		});
 		message.delete(1000);

@@ -3,7 +3,7 @@ const ytdl = require('ytdl-core');
 module.exports = {
 	name: 'tts',
 	description: 'Text to Speech',
-	execute(client, message, args) {
+	execute(config, message, args) {
 
 		if(message.channel.type !== 'text') return;
 		const { voiceChannel } = message.member;

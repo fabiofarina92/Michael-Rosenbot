@@ -3,7 +3,7 @@ const ytdl = require('ytdl-core');
 module.exports = {
 	name: 'nice',
 	description: 'Noice',
-	execute(client, message, args) {
+	execute(config, message, args) {
 		let video = 'https://www.youtube.com/watch?v=CYqq9Ovz_9c';
 		if(args[0] === 'full') {
 			video = 'https://www.youtube.com/watch?v=Akwm2UZJ34o';

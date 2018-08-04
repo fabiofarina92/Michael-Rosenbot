@@ -3,7 +3,7 @@ const ytdl = require('ytdl-core');
 module.exports = {
 	name: 'initd',
 	description: 'Initial D',
-	execute(client, message, args) {
+	execute(config, message, args) {
 		let video = 'https://www.youtube.com/watch?v=dv13gl0a-FA';
 		if(args[0] === 'dejavu') {
 			video = 'https://www.youtube.com/watch?v=dv13gl0a-FA';
