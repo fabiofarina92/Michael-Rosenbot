@@ -1,6 +1,7 @@
 module.exports = {
 	name: 'resume',
 	description: 'Resume playback',
+	enabled: true,
 	execute(config, message, args) {
         
         this.configs = config;        

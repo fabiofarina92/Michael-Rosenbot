@@ -1,6 +1,8 @@
 module.exports = {
 	name: 'volume',
-	description: 'Set volume of bot',
+    description: 'Set or display the volume',
+    usage: '--volume 5',
+	enabled: true,
 	execute(config, message, args) {
         
         this.configs = config;        

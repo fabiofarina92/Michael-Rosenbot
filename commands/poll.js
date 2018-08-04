@@ -2,7 +2,9 @@ const ytdl = require('ytdl-core');
 
 module.exports = {
 	name: 'poll',
-	description: 'Multi option poll',
+	description: 'WIP: Multi option poll with random otucome',
+	usage: '--poll "question" "answer 1" "answer 2" "answer 3"',
+	enabled: false,
 	execute(config, message, args) {
 
 		const fullString = args.join(' ');

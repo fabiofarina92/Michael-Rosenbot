@@ -3,7 +3,8 @@ const httpRequestsHelper = require('../helpers/http-requests-helper');
 
 module.exports = {
 	name: 'doggo',
-	description: 'Random doggos',
+	description: 'Fetch a picture of a random doggo',
+	enabled: true,
 	execute(config, message, args) {
 
 		httpRequestsHelper.sendStandardRequest('https://dog.ceo/api/breeds/image/random', function(response) {

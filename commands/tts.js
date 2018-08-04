@@ -2,7 +2,9 @@ const ytdl = require('ytdl-core');
 
 module.exports = {
 	name: 'tts',
-	description: 'Text to Speech',
+	description: 'Play a text to speech command',
+	usage: '--tts <message>',
+	enabled: true,
 	execute(config, message, args) {
 
 		if(message.channel.type !== 'text') return;

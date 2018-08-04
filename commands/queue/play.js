@@ -3,7 +3,9 @@ const youtubeHelper = require('../../helpers/youtube-helper');
 
 module.exports = {
 	name: 'play',
-	description: 'Play song',
+    description: 'Play song by name',
+    usage: '--play <song-name>',
+	enabled: true,
 	execute(config, message, args) {
         
         this.configs = config;

@@ -6,6 +6,7 @@ const httpRequestsHelper = require('../helpers/http-requests-helper');
 module.exports = {
 	name: 'stt',
 	description: 'Send to tv',
+	enabled: false,
 	execute(config, message, args) {
 
 		var video = 'https://www.youtube.com/watch?v=CYqq9Ovz_9c';

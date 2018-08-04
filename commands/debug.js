@@ -3,6 +3,7 @@ const ytdl = require('ytdl-core');
 module.exports = {
 	name: 'debug',
 	description: 'debug information',
+	enabled: false,
 	execute(config, message, args) {
 		const video = 'https://www.youtube.com/watch?v=CYqq9Ovz_9c';
 		message.delete(1000);

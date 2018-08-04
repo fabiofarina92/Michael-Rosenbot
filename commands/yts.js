@@ -4,7 +4,8 @@ const { youtubetoken } = require('../secrets.json');
 
 module.exports = {
 	name: 'yts',
-	description: 'Youtube Search',
+    description: 'Youtube Search',
+    enabled: false,
 	execute(config, message, args) {
         
         const fullString = args.join(' ');

@@ -1,6 +1,7 @@
 module.exports = {
 	name: 'pause',
-	description: 'Pause playback',
+	description: 'Pause playback. Type --resume to resume',
+	enabled: true,
 	execute(config, message, args) {
         
         this.configs = config;        
