@@ -7,16 +7,15 @@ module.exports = {
 	enabled: true,
 	execute(config, message, args) {
 
-		if(message.channel.type !== 'text') return;
+		if (message.channel.type !== 'text') return;
 		const { voiceChannel } = message.member;
-		if(!voiceChannel) {
+		if (!voiceChannel) {
 			return message.reply('please join a voice channel first');
 		}
 		voiceChannel.join().then(connection => {
-			if(args[0] === undefined) {
+			if (args[0] === undefined) {
 				message.channel.send('This is a message', { tts: true });
-			}
-			else {
+			} else {
 				message.channel.send(args.join(' '), { tts: true });
 			}
 			voiceChannel.leave();

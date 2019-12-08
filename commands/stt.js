@@ -11,16 +11,16 @@ module.exports = {
 
 		var video = 'https://www.youtube.com/watch?v=CYqq9Ovz_9c';
 
-		if(args[0]) {
+		if (args[0]) {
 			const fullString = args.join(' ');
-			
-			youtubeHelper.searchYoutube(fullString, message, function(response) {
-				httpRequestsHelper.sendHassMediaRequest(response);				
+
+			youtubeHelper.searchYoutube(fullString, message, function (response) {
+				httpRequestsHelper.sendHassMediaRequest(response);
 			});
-		} else {			
+		} else {
 			httpRequestsHelper.sendHassMediaRequest(video);
 		}
-		
+
 		message.delete(1000);
 	},
 };

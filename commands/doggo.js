@@ -7,7 +7,7 @@ module.exports = {
 	enabled: true,
 	execute(config, message, args) {
 
-		httpRequestsHelper.sendStandardRequest('https://dog.ceo/api/breeds/image/random', function(response) {
+		httpRequestsHelper.sendStandardRequest('https://dog.ceo/api/breeds/image/random', function (response) {
 			message.channel.send(response.message);
 		});
 		message.delete(1000);
