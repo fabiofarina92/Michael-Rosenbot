@@ -9,7 +9,7 @@ module.exports = {
 		// const video = 'https://www.youtube.com/watch?v=CYqq9Ovz_9c';
 		message.delete(1000);
 		// console.log(message);
-		if(message.author.id === praeId) {
+		if (message.author.id === praeId) {
 			message.channel.send("Hello Prae");
 		} else {
 			message.channel.send("Hello");

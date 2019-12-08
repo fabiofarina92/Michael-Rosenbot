@@ -11,9 +11,9 @@ module.exports = {
 		this.configs = config;
 		const fullString = args.join(' ');
 
-		const {voiceChannel} = message.member;
+		const { voiceChannel } = message.member;
 		if (fullString.indexOf('www.youtube') > 0) {
-			handleVideo(config, { id: 1, title: 'unknown', link: fullString}, message, voiceChannel)
+			handleVideo(config, { id: 1, title: 'unknown', link: fullString }, message, voiceChannel)
 		} else {
 			youtubeHelper.searchFullYoutube(fullString, message, function (response) {
 				if (!voiceChannel) {
@@ -50,13 +50,13 @@ async function handleVideo(config, video, message, voiceChannel, playlist = fals
 			queueConstruct.connection = await voiceChannel.join();
 			play(config, message, queueConstruct.songs[0]);
 		} catch (error) {
-			console.error(`I couldn't join the voice channel: ${error}`);
+			console.error(`I couldn't join the voice channel: ${ error }`);
 			config.queue.delete(message.guild.id);
-			return message.channel.send(`I couldn't join the voice channel: ${error}`);
+			return message.channel.send(`I couldn't join the voice channel: ${ error }`);
 		}
 	} else {
 		config.serverQueue.songs.push(song);
-		message.channel.send(`** ${song.title} has been added to the queue **`);
+		message.channel.send(`** ${ song.title } has been added to the queue **`);
 	}
 	return undefined;
 }
@@ -70,8 +70,8 @@ function play(config, message, song) {
 		return;
 	}
 
-	serverQueue.textChannel.send(`Now playing: ${serverQueue.songs[0].url}`);
-	const stream = ytdl(song.url, {filter: 'audioonly'});
+	serverQueue.textChannel.send(`Now playing: ${ serverQueue.songs[0].url }`);
+	const stream = ytdl(song.url, { filter: 'audioonly' });
 	const dispatcher = serverQueue.connection.playStream(stream)
 			.on('end', reason => {
 				if (reason === 'Stream is not generating quickly enough.') {

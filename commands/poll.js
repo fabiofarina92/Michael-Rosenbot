@@ -9,14 +9,14 @@ module.exports = {
 
 		const fullString = args.join(' ');
 
-		const split = fullString.split('\"').filter(function(element, index, array) {
+		const split = fullString.split('\"').filter(function (element, index, array) {
 			return ((index + 1) % 2 === 0);
 		});
 		console.log(split);
 		console.log(Math.floor((Math.random() * split.length)) + 1);
-		if(message.channel.type !== 'text') return;
+		if (message.channel.type !== 'text') return;
 		const { voiceChannel } = message.member;
-		if(!voiceChannel) {
+		if (!voiceChannel) {
 			return message.reply('please join a voice channel first');
 		}
 		voiceChannel.join().then(connection => {

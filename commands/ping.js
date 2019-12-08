@@ -4,7 +4,7 @@ module.exports = {
 	enabled: true,
 	execute(config, message, args) {
 		message.channel.send('Pong!' + args);
-		
+
 		message.delete(1000);
 	},
 };

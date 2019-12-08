@@ -15,34 +15,33 @@ const config = {};
 const queue = new Map();
 
 
-for(const file of baseCommandFiles) {
-	if(path.extname(file) === '.js') {
-		const command = require(`./commands/${file}`);
-		if(command.enabled) {
-			client.commands.set(command.name, command);
-		}		
-	}	
-}
-
-for(const file of queueCommandFiles) {
-	if(path.extname(file) === '.js') {
-		const command = require(`./commands/queue/${file}`);
-		if(command.enabled) {
+for (const file of baseCommandFiles) {
+	if (path.extname(file) === '.js') {
+		const command = require(`./commands/${ file }`);
+		if (command.enabled) {
 			client.commands.set(command.name, command);
 		}
-	}	
+	}
 }
 
-
-for(const file of debugCommandFiles) {
-	if(path.extname(file) === '.js') {
-		const command = require(`./commands/debug/${file}`);
-		if(command.enabled) {
+for (const file of queueCommandFiles) {
+	if (path.extname(file) === '.js') {
+		const command = require(`./commands/queue/${ file }`);
+		if (command.enabled) {
 			client.commands.set(command.name, command);
 		}
-	}	
+	}
 }
 
+
+for (const file of debugCommandFiles) {
+	if (path.extname(file) === '.js') {
+		const command = require(`./commands/debug/${ file }`);
+		if (command.enabled) {
+			client.commands.set(command.name, command);
+		}
+	}
+}
 
 
 client.on('message', (message) => {
@@ -54,16 +53,15 @@ client.on('message', (message) => {
 	config.queue = queue;
 	config.serverQueue = serverQueue;
 	config.commands = client.commands;
-	if(!message.content.startsWith(prefix) || message.author.bot) return;
+	if (!message.content.startsWith(prefix) || message.author.bot) return;
 	const args = message.content.slice(prefix.length).split(/ +/);
 	const command = args.shift().toLowerCase();
 
-	if(!client.commands.has(command)) return;
+	if (!client.commands.has(command)) return;
 
 	try {
 		client.commands.get(command).execute(config, message, args);
-	}
-	catch (error) {
+	} catch (error) {
 		console.error(error);
 		message.react('angry');
 		message.reply('there was an error executing that command');
