@@ -16,7 +16,7 @@ const queue = new Map();
 
 
 for(const file of baseCommandFiles) {
-	if(path.extname(file) == '.js') {
+	if(path.extname(file) === '.js') {
 		const command = require(`./commands/${file}`);
 		if(command.enabled) {
 			client.commands.set(command.name, command);
@@ -25,7 +25,7 @@ for(const file of baseCommandFiles) {
 }
 
 for(const file of queueCommandFiles) {
-	if(path.extname(file) == '.js') {
+	if(path.extname(file) === '.js') {
 		const command = require(`./commands/queue/${file}`);
 		if(command.enabled) {
 			client.commands.set(command.name, command);
@@ -35,7 +35,7 @@ for(const file of queueCommandFiles) {
 
 
 for(const file of debugCommandFiles) {
-	if(path.extname(file) == '.js') {
+	if(path.extname(file) === '.js') {
 		const command = require(`./commands/debug/${file}`);
 		if(command.enabled) {
 			client.commands.set(command.name, command);

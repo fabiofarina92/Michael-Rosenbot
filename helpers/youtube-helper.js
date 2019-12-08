@@ -3,7 +3,7 @@ const { youtubetoken } = require('../secrets.json');
 
 module.exports = {
     searchYoutube(description, message, callback) {
-        if(description == '') return;
+        if(description === '') return;
         const opts = {
             maxResults: 1,
             key: youtubetoken,
@@ -16,7 +16,7 @@ module.exports = {
     },
 
     searchFullYoutube(description, message, callback) {
-        if(description == '') return;
+        if(description === '') return;
         const opts = {
             maxResults: 1,
             key: youtubetoken,
