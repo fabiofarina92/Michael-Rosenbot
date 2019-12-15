@@ -3,6 +3,7 @@ const path = require('path');
 const Discord = require('discord.js');
 const { prefix } = require('./config.json');
 const { token } = require('./secrets.json');
+const signale = require('signale');
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -13,7 +14,6 @@ const debugCommandFiles = fs.readdirSync('./commands/debug');
 
 const config = {};
 const queue = new Map();
-
 
 for (const file of baseCommandFiles) {
 	if (path.extname(file) === '.js') {
@@ -46,6 +46,7 @@ for (const file of debugCommandFiles) {
 
 client.on('message', (message) => {
 
+	signale.debug(message.content);
 	const serverQueue = queue.get(message.guild.id);
 
 	client.user.setUsername('Michael Rosen');
@@ -60,9 +61,11 @@ client.on('message', (message) => {
 	if (!client.commands.has(command)) return;
 
 	try {
+		signale.success('Message received from discord: %s', message.content);
 		client.commands.get(command).execute(config, message, args);
 	} catch (error) {
 		console.error(error);
+		signale.fatal(error);
 		message.react('angry');
 		message.reply('there was an error executing that command');
 	}
