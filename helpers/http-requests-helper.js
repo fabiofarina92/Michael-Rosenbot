@@ -1,3 +1,4 @@
+const signale = require('signale');
 const request = require('request');
 const { hassMediaExtractor, hassChromeCast } = require('../secrets.json');
 
@@ -34,13 +35,14 @@ module.exports = {
 
 	sendStandardRequest(endpoint, callback) {
 		request(endpoint, function (error, response, body) {
-			console.log('error:', error); // Print the error if one occurred
-			console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+			// console.log('error:', error); // Print the error if one occurred
+			// console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
 
 			const content = JSON.parse(body);
-			console.log('body:', content); // Print the HTML for the Google homepage.
-			console.log('string body', content.message);
+			// console.log('body:', content); // Print the HTML for the Google homepage.
+			// console.log('string body', content.message);
 
+			signale.info('Response content: %s', content);
 			callback(content);
 
 		});

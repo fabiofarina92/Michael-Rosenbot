@@ -1,5 +1,7 @@
+const signale = require('signale');
 const Discord = require('discord.js');
 const Canvas = require('canvas');
+const CanvasTextWrapper = require('canvas-text-wrapper').CanvasTextWrapper;
 
 module.exports = {
 	name: 'quote',
@@ -27,13 +29,15 @@ module.exports = {
 		const background = await Canvas.loadImage('assets/basic-background.png');
 		ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
-		// ctx.strokeStyle = '#74037b';
-		// ctx.strokeRect(0, 0, canvas.width, canvas.height);
+		ctx.strokeStyle = '#74037b';
+		ctx.strokeRect(0, 0, canvas.width, canvas.height);
 
-		const builtQuote = `${ quote.slice(0, 40) } \r\n — ${ targetUserGuild.displayName }`;
+		const quoteLines = getLines(ctx, quote, (canvas.width / 5.5));
+		signale.info(quoteLines);
+		const builtQuote = `${ quoteLines.join('\r\n') } \r\n — ${ targetUserGuild.displayName }`;
 		ctx.font = applyText(canvas, builtQuote);
 		ctx.fillStyle = '#ffffff';
-		ctx.fillText(builtQuote, canvas.width / 2.5, canvas.height / 1.8);
+		ctx.fillText(builtQuote, canvas.width / 2.5, canvas.height / (1.3 * quoteLines.length));
 
 		ctx.beginPath();
 		ctx.arc(125, 125, 100, 0, Math.PI * 2, true);
@@ -58,6 +62,30 @@ const applyText = (canvas, text) => {
 	do {
 		ctx.font = `${fontSize -= 10}px sans-serif`;
 	} while (ctx.measureText(text).width > canvas.width - 300);
+};
+
+const getLines = (ctx, text, maxWidth) => {
+	const lines = [];
+	if (!text) return lines;
+
+	// Start calculation
+	while (text.length) {
+		let i;
+		for (i = text.length; ctx.measureText(text.substr(0, i)).width > maxWidth; i -= 1) ;
+
+		const result = text.substr(0, i);
+
+		let j;
+		if (i !== text.length) for (j = 0; result.indexOf(' ', j) !== -1; j = result.indexOf(' ', j) + 1) ;
+
+		lines.push(result.substr(0, j || result.length));
+
+		// moves to separate line instead of just cutting it off to new line
+		// let width = Math.max( width, ctx.measureText(lines[ lines.length-1 ]).width );
+		text = text.substr(lines[lines.length - 1].length, text.length);
+	}
+
+	return lines;
 };
 
 const constructQuoteString = (text) => {

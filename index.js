@@ -46,7 +46,7 @@ for (const file of debugCommandFiles) {
 
 client.on('message', (message) => {
 
-	signale.debug(message.content);
+	signale.info('Message sent from %s: %s', message.author.username, message.content);
 	const serverQueue = queue.get(message.guild.id);
 
 	client.user.setUsername('Michael Rosen');
@@ -61,7 +61,7 @@ client.on('message', (message) => {
 	if (!client.commands.has(command)) return;
 
 	try {
-		signale.success('Message received from discord: %s', message.content);
+		signale.success('Command: %s. Args: %s', command, args);
 		client.commands.get(command).execute(config, message, args);
 	} catch (error) {
 		console.error(error);
