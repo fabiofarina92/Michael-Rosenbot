@@ -10,9 +10,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@discordjs/opus": "^0.3.2",
+    "bufferutil": "^4.0.1",
     "canvas": "^2.6.0",
     "canvas-text-wrapper": "^0.10.2",
-    "discord.js": "^11.5.1",
+    "discord.js": "^11.6.4",
+    "ffmpeg": "0.0.4",
     "ffmpeg-binaries": "^3.2.2",
     "node-opus": "^0.3.3",
     "request": "^2.88.0",

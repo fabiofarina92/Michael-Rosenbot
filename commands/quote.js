@@ -1,7 +1,6 @@
 const signale = require('signale');
 const Discord = require('discord.js');
 const Canvas = require('canvas');
-const CanvasTextWrapper = require('canvas-text-wrapper').CanvasTextWrapper;
 
 module.exports = {
 	name: 'quote',
@@ -37,7 +36,7 @@ module.exports = {
 		const builtQuote = `${ quoteLines.join('\r\n') } \r\n — ${ targetUserGuild.displayName }`;
 		ctx.font = applyText(canvas, builtQuote);
 		ctx.fillStyle = '#ffffff';
-		ctx.fillText(builtQuote, canvas.width / 2.5, canvas.height / (1.3 * quoteLines.length));
+		ctx.fillText(builtQuote, canvas.width / 2.5, canvas.height / (1.8 * quoteLines.length));
 
 		ctx.beginPath();
 		ctx.arc(125, 125, 100, 0, Math.PI * 2, true);
@@ -86,8 +85,4 @@ const getLines = (ctx, text, maxWidth) => {
 	}
 
 	return lines;
-};
-
-const constructQuoteString = (text) => {
-
 };

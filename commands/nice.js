@@ -21,6 +21,7 @@ module.exports = {
 		if (!voiceChannel) {
 			return message.reply('please join a voice channel first');
 		}
+		console.log('hit');
 		voiceChannel.join().then(connection => {
 			const stream = ytdl(video, { filter: 'audioonly' });
 			const dispatcher = connection.playStream(stream);
