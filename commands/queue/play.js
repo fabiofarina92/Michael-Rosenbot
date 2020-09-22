@@ -65,7 +65,7 @@ async function handleVideo(
             signale.success("Playing music stream");
             message.channel.send("Playback started.");
           })
-          .on("end", (reason) => {
+          .on("finish", (reason) => {
             if (reason === "Stream is not generating quickly enough.") {
               message.channel.send("Playback ended.");
               console.log("Song ended.");
