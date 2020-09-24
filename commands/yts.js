@@ -26,7 +26,6 @@ module.exports = {
 			});
 			console.dir(response);
 		});
-
-		message.delete(1000);
+		message.delete({ timeout: 5000, reason: 'Because I said so' });
 	},
 };

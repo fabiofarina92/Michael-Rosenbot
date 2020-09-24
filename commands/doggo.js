@@ -10,6 +10,6 @@ module.exports = {
 		httpRequestsHelper.sendStandardRequest('https://dog.ceo/api/breeds/image/random', function (response) {
 			message.channel.send(response.message);
 		});
-		message.delete(1000);
+		message.delete({ timeout: 5000, reason: 'Because I said so' });
 	},
 };

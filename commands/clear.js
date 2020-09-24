@@ -22,6 +22,6 @@ module.exports = {
 
         message.channel.bulkDelete(messageDeleteCount)
 
-		message.delete(1000);
+		message.delete({ timeout: 1000, reason: 'No messages' });
 	},
 };

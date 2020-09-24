@@ -21,6 +21,6 @@ module.exports = {
 			httpRequestsHelper.sendHassMediaRequest(video);
 		}
 
-		message.delete(1000);
+		message.delete({ timeout: 5000, reason: 'Because I said so' });
 	},
 };

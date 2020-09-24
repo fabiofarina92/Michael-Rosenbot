@@ -20,6 +20,7 @@ module.exports = {
 		} else {
 			targetUser = message.author;
 		}
+		console.log(targetUser)
 
 		const quote = args.slice(textStart, args.length).join(' ');
 		const canvas = Canvas.createCanvas(700, 250);
@@ -43,13 +44,13 @@ module.exports = {
 		ctx.closePath();
 		ctx.clip();
 
-		const avatar = await Canvas.loadImage(targetUser.displayAvatarURL);
+		const avatar = await Canvas.loadImage(targetUser.displayAvatarURL({ format: 'png', dynamic: true, size: 1024 }));
 		ctx.drawImage(avatar, 40, 40, 200, 200);
 
 		const attachment = new Discord.Attachment(canvas.toBuffer(), 'test.png');
 
 		message.channel.send(`Here you go!`, attachment);
-		message.delete(1000);
+		message.delete({ timeout: 5000, reason: 'Because I said so' });
 	},
 };
 

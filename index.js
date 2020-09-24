@@ -6,6 +6,7 @@ const { token } = require('./secrets.json');
 const signale = require('signale');
 
 const client = new Discord.Client();
+client.login(token);
 client.commands = new Discord.Collection();
 
 const baseCommandFiles = fs.readdirSync('./commands');
@@ -72,5 +73,4 @@ client.on('message', (message) => {
 
 });
 
-client.login(token);
-client.destroy();
+// client.destroy();
