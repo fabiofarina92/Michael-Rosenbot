@@ -67,7 +67,7 @@ client.on('message', (message) => {
 	} catch (error) {
 		console.error(error);
 		signale.fatal(error);
-		message.react('angry');
+		message.react(':angry:');
 		message.reply('there was an error executing that command');
 	}
 

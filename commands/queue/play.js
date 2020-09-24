@@ -11,23 +11,23 @@ module.exports = {
     this.configs = config;
     const fullString = args.join(" ");
 
-    const { voiceChannel } = message.member;
+    const { channel } = message.member.voice;
     if (fullString.indexOf("www.youtube") > 0) {
       handleVideo(
         config,
         { id: 1, title: "unknown", link: fullString },
         message,
-        voiceChannel
+        channel
       );
     } else {
       youtubeHelper.searchFullYoutube(fullString, message, function (response) {
-        if (!voiceChannel) {
+        if (!channel) {
           return message.reply("please join a voice channel first");
         }
-        handleVideo(config, response, message, voiceChannel);
+        handleVideo(config, response, message, channel);
       });
     }
-    message.delete(1000);
+		message.delete({ timeout: 5000, reason: 'Because I said so' });
   },
 };
 
@@ -35,7 +35,7 @@ async function handleVideo(
   config,
   video,
   message,
-  voiceChannel,
+  channel,
   playlist = false
 ) {
   const serverQueue = config.queue.get(message.guild.id);
@@ -48,7 +48,7 @@ async function handleVideo(
   if (!serverQueue) {
     const queueConstruct = {
       textChannel: message.channel,
-      voiceChannel: voiceChannel,
+      channel: channel,
       connection: null,
       songs: [],
       volume: 5,
@@ -59,7 +59,7 @@ async function handleVideo(
 
     try {
       // queueConstruct.connection = await voiceChannel.join();
-      voiceChannel.join().then((connection) => {
+      channel.join().then((connection) => {
         play(config, message, queueConstruct.songs[0], connection)
           .on("start", () => {
             signale.success("Playing music stream");
@@ -97,14 +97,14 @@ function play(config, message, song, connection) {
   const serverQueue = config.queue.get(message.guild.id);
 
   if (!song) {
-    serverQueue.voiceChannel.leave();
+    serverQueue.channel.leave();
     config.queue.delete(message.guild.id);
     return;
   }
 
   serverQueue.textChannel.send(`Now playing: ${serverQueue.songs[0].url}`);
   const stream = ytdl(song.url, { filter: "audioonly" });
-  const dispatcher = connection.playStream(stream);
+  const dispatcher = connection.play(stream);
   dispatcher.setVolumeLogarithmic(5 / 5);
   return dispatcher;
 }
