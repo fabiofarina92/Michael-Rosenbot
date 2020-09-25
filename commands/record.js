@@ -21,7 +21,7 @@ module.exports = {
         
         channel.join().then((connection) => {
             message.reply('ready!');
-            const receiver = connection.createReceiver();
+            const receiver = connection.receiver;
 
             connection.on('speaking', (user, speaking) => {
                 if (speaking) {
