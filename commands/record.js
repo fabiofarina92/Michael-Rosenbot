@@ -21,12 +21,12 @@ module.exports = {
         
         channel.join().then((connection) => {
             message.reply('ready!');
-            const receiver = connection.receiver;
 
             connection.on('speaking', (user, speaking) => {
+                console.log(user.tag, speaking.toArray());
                 if (speaking) {
                     message.channel.send(`I'm listening to ${user}`);
-                    const audioStream = receiver.createStream(user, { mode: 'pcm' });
+                    const audioStream = connection.receiver.createStream(user, { mode: 'pcm' });
                     const outputStream = generateOutputFile(channel, user);
 
                     audioStream.pipe(outputStream);
