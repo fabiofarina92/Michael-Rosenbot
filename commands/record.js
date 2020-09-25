@@ -26,7 +26,7 @@ module.exports = {
             connection.on('speaking', (user, speaking) => {
                 if (speaking) {
                     message.channel.send(`I'm listening to ${user}`);
-                    const audioStream = receiver.createPCMStream(user);
+                    const audioStream = receiver.createStream(user, { mode: 'pcm' });
                     const outputStream = generateOutputFile(channel, user);
 
                     audioStream.pipe(outputStream);
