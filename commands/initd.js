@@ -23,7 +23,7 @@ module.exports = {
 		}
 		channel.join().then(connection => {
 			const stream = ytdl(video, { filter: 'audioonly' });
-			const dispatcher = connection.playStream(stream);
+			const dispatcher = connection.play(stream);
 
 			dispatcher.on('end', () => {
 				channel.leave();
