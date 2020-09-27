@@ -2,7 +2,7 @@ module.exports = {
 	name: 'volume',
 	description: 'Set or display the volume',
 	usage: '--volume 5',
-	enabled: true,
+	enabled: false,
 	execute(config, message, args) {
 
 		this.configs = config;

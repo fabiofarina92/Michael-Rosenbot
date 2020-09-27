@@ -29,6 +29,5 @@ module.exports = {
 				channel.leave();
 			});
 		});
-		message.delete({ timeout: 5000, reason: 'Because I said so' });
 	},
 };

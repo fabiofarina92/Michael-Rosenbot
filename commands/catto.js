@@ -10,6 +10,5 @@ module.exports = {
 		httpRequestsHelper.sendStandardRequest('https://aws.random.cat/meow', function (response) {
 			message.channel.send(response.file);
 		});
-		message.delete({ timeout: 5000, reason: 'Because I said so' });
 	},
 };

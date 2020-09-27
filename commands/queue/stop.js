@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'stop',
 	description: 'Stop all and clear queue',
-	enabled: true,
+	enabled: false,
 	execute(config, message, args) {
 
 		this.configs = config;

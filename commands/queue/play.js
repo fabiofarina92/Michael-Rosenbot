@@ -6,7 +6,7 @@ module.exports = {
   name: "play",
   description: "Play song by name",
   usage: "--play <song-name>",
-  enabled: true,
+  enabled: false,
   execute(config, message, args) {
     this.configs = config;
     const fullString = args.join(" ");

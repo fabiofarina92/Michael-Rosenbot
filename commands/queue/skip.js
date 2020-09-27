@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'skip',
 	description: 'Skip to next song in the queue',
-	enabled: true,
+	enabled: false,
 	execute(config, message, args) {
 
 		this.configs = config;

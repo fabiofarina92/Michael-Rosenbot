@@ -6,7 +6,7 @@ module.exports = {
 	name: 'quote',
 	description: 'Generate a flashy image with a quote',
 	usage: '--quote "Here is my quote"',
-	enabled: true,
+	enabled: false,
 	async execute(config, message, args) {
 		if (!message.channel) return;
 
