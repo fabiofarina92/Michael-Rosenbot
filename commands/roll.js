@@ -12,6 +12,21 @@ module.exports = {
 
     if (!count || !command) {
         message.reply("Invalid format. Please use `roll <number>d<command>`")
+        return
+    }
+
+    if (!isNaN(command)) {
+        if (count > 100) {
+            message.reply("I'm not rolling that many times. You can fuck right off.");
+            return;
+        }
+        let accumulatorString = '';
+        for (let i = 0; i < count; i++) {
+            accumulatorString = accumulatorString + 'D' + (i+1) + ': `' + (Math.floor(Math.random() * Number(command)) + 1) + '`\n'; 
+        }
+        let replyString = "Your roll of " + count + "d" + command + " returned \n" + accumulatorString;
+        message.reply(replyString);
+        return;
     }
 
     if (count > 5) {
