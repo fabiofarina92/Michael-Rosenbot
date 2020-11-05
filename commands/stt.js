@@ -21,6 +21,5 @@ module.exports = {
 			httpRequestsHelper.sendHassMediaRequest(video);
 		}
 
-		message.delete(1000);
 	},
 };

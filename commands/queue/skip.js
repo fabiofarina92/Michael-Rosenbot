@@ -1,13 +1,13 @@
 module.exports = {
 	name: 'skip',
 	description: 'Skip to next song in the queue',
-	enabled: true,
+	enabled: false,
 	execute(config, message, args) {
 
 		this.configs = config;
 
-		const { voiceChannel } = message.member;
-		if (!voiceChannel) {
+		const { channel } = message.member.voice;
+		if (!channel) {
 			return message.reply('please join a voice channel first');
 		}
 		if (!config.serverQueue) {

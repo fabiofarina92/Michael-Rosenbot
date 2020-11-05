@@ -3,8 +3,10 @@ const path = require('path');
 const Discord = require('discord.js');
 const { prefix } = require('./config.json');
 const { token } = require('./secrets.json');
+const signale = require('signale');
 
 const client = new Discord.Client();
+client.login(token);
 client.commands = new Discord.Collection();
 
 const baseCommandFiles = fs.readdirSync('./commands');
@@ -13,7 +15,6 @@ const debugCommandFiles = fs.readdirSync('./commands/debug');
 
 const config = {};
 const queue = new Map();
-
 
 for (const file of baseCommandFiles) {
 	if (path.extname(file) === '.js') {
@@ -46,12 +47,15 @@ for (const file of debugCommandFiles) {
 
 client.on('message', (message) => {
 
-	const serverQueue = queue.get(message.guild.id);
+	signale.info('Message sent from %s: %s', message.author.username, message.content);
+	if (message.guild) {
+		const serverQueue = queue.get(message.guild.id);
+		config.queue = queue;
+		config.serverQueue = serverQueue;
+	}
 
 	client.user.setUsername('Michael Rosen');
 	client.user.setActivity('with hot food');
-	config.queue = queue;
-	config.serverQueue = serverQueue;
 	config.commands = client.commands;
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 	const args = message.content.slice(prefix.length).split(/ +/);
@@ -60,14 +64,15 @@ client.on('message', (message) => {
 	if (!client.commands.has(command)) return;
 
 	try {
+		signale.success('Command: %s. Args: %s', command, args);
 		client.commands.get(command).execute(config, message, args);
 	} catch (error) {
 		console.error(error);
-		message.react('angry');
+		signale.fatal(error);
+		message.react(':angry:');
 		message.reply('there was an error executing that command');
 	}
 
 });
 
-client.login(token);
-client.destroy();
+// client.destroy();

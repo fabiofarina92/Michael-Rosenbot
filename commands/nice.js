@@ -17,18 +17,17 @@ module.exports = {
 			video = 'https://www.youtube.com/watch?v=gwAKwqlYyOA&t';
 		}
 		if (message.channel.type !== 'text') return;
-		const { voiceChannel } = message.member;
-		if (!voiceChannel) {
+		const { channel } = message.member.voice;
+		if (!channel) {
 			return message.reply('please join a voice channel first');
 		}
-		voiceChannel.join().then(connection => {
+		channel.join().then(connection => {
 			const stream = ytdl(video, { filter: 'audioonly' });
-			const dispatcher = connection.playStream(stream);
+			const dispatcher = connection.play(stream);
 
-			dispatcher.on('end', () => {
-				voiceChannel.leave();
+			dispatcher.on('finish', () => {
+				channel.leave();
 			});
 		});
-		message.delete(1000);
 	},
 };

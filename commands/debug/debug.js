@@ -14,7 +14,9 @@ module.exports = {
 		} else {
 			message.channel.send("Hello");
 		}
-		console.log('user', message.author.id);
+		const user = message.guild.member(message.mentions.users.first());
+		const user2 = message.mentions.users.first();
+		console.log('user', user2.displayAvatarURL);
 		// console.log(message.member.guild.channels);
 		// message.member.guild.channels.forEach(element => {
 		// 	if(element['type'] === 'voice') {

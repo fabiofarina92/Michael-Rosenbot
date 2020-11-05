@@ -1,13 +1,13 @@
 module.exports = {
 	name: 'pause',
 	description: 'Pause playback. Type --resume to resume',
-	enabled: true,
+	enabled: false,
 	execute(config, message, args) {
 
 		this.configs = config;
 
-		const { voiceChannel } = message.member;
-		if (!voiceChannel) {
+		const { channel } = message.member.voice;
+		if (!channel) {
 			return message.reply('please join a voice channel first');
 		}
 		if (!config.serverQueue) {
@@ -19,6 +19,8 @@ module.exports = {
 			return message.channel.send('Pausing playback');
 		}
 
+		message.delete({ timeout: 5000, reason: 'Because I said so' });
 		message.delete(1000);
+
 	},
 };
