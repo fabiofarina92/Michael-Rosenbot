@@ -48,12 +48,14 @@ for (const file of debugCommandFiles) {
 client.on('message', (message) => {
 
 	signale.info('Message sent from %s: %s', message.author.username, message.content);
-	const serverQueue = queue.get(message.guild.id);
+	if (message.guild) {
+		const serverQueue = queue.get(message.guild.id);
+		config.queue = queue;
+		config.serverQueue = serverQueue;
+	}
 
 	client.user.setUsername('Michael Rosen');
 	client.user.setActivity('with hot food');
-	config.queue = queue;
-	config.serverQueue = serverQueue;
 	config.commands = client.commands;
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 	const args = message.content.slice(prefix.length).split(/ +/);
