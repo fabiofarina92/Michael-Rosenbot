@@ -10,11 +10,10 @@ client.login(token);
 client.commands = new Discord.Collection();
 
 const baseCommandFiles = fs.readdirSync('./commands');
-const queueCommandFiles = fs.readdirSync('./commands/queue');
 const debugCommandFiles = fs.readdirSync('./commands/debug');
+const personalCommandFiles = fs.readdirSync('./commands/personal');
 
 const config = {};
-const queue = new Map();
 
 for (const file of baseCommandFiles) {
 	if (path.extname(file) === '.js') {
@@ -25,16 +24,6 @@ for (const file of baseCommandFiles) {
 	}
 }
 
-for (const file of queueCommandFiles) {
-	if (path.extname(file) === '.js') {
-		const command = require(`./commands/queue/${ file }`);
-		if (command.enabled) {
-			client.commands.set(command.name, command);
-		}
-	}
-}
-
-
 for (const file of debugCommandFiles) {
 	if (path.extname(file) === '.js') {
 		const command = require(`./commands/debug/${ file }`);
@@ -44,16 +33,17 @@ for (const file of debugCommandFiles) {
 	}
 }
 
+for (const file of personalCommandFiles) {
+	if (path.extname(file) === '.js') {
+		const command = require(`./commands/personal/${ file }`);
+		if (command.enabled) {
+			client.commands.set(command.name, command);
+		}
+	}
+}
 
 client.on('message', (message) => {
-
 	signale.info('Message sent from %s: %s', message.author.username, message.content);
-	if (message.guild) {
-		const serverQueue = queue.get(message.guild.id);
-		config.queue = queue;
-		config.serverQueue = serverQueue;
-	}
-
 	client.user.setUsername('Michael Rosen');
 	client.user.setActivity('with hot food');
 	config.commands = client.commands;
@@ -69,10 +59,9 @@ client.on('message', (message) => {
 	} catch (error) {
 		console.error(error);
 		signale.fatal(error);
-		message.react(':angry:');
+		message.react('😠');
 		message.reply('there was an error executing that command');
 	}
-
 });
 
 // client.destroy();
