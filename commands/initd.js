@@ -3,7 +3,7 @@ const ytdl = require('ytdl-core');
 module.exports = {
 	name: 'initd',
 	description: 'Play Initial D songs',
-	usage: '--initd dejavu, --initd gas, --initd running',
+	usage: 'initd dejavu, initd gas, initd running',
 	enabled: true,
 	execute(config, message, args) {
 		let video = 'https://www.youtube.com/watch?v=dv13gl0a-FA';

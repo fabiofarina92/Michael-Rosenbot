@@ -5,6 +5,7 @@ const { hassIoToken, hassIoEndpoints } = require("../../secrets.json");
 module.exports = {
   name: "light",
   description: "Turn on lights",
+  usage: "light [room*, colour, preset]",
   enabled: true,
   execute(config, message, args) {
     let { foundRoom, foundColour, preset } = parseArguments(args);

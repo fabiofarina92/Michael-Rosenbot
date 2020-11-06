@@ -2,7 +2,7 @@
 module.exports = {
 	name: 'clear',
 	description: 'Clear messages with number. Default 1 message',
-	usage: '--clear <number>',
+	usage: 'clear <number>',
 	enabled: true,
 	execute(config, message, args) {
         let messageDeleteCount = 1
@@ -19,8 +19,6 @@ module.exports = {
             message.channel.send('At least try and delete one message')
             messageDeleteCount = 1
         }
-
-		message.delete({ timeout: 1000, reason: 'No messages' });
         message.channel.bulkDelete(messageDeleteCount)
 	},
 };

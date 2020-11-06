@@ -43,11 +43,11 @@ for (const file of personalCommandFiles) {
 }
 
 client.on('message', (message) => {
-	signale.info('Message sent from %s: %s', message.author.username, message.content);
 	client.user.setUsername('Michael Rosen');
 	client.user.setActivity('with hot food');
 	config.commands = client.commands;
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
+	signale.info('Message sent from %s: %s', message.author.username, message.content);
 	const args = message.content.slice(prefix.length).split(/ +/);
 	const command = args.shift().toLowerCase();
 

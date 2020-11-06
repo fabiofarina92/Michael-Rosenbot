@@ -29,6 +29,9 @@ module.exports = {
 	sendBasicPost(endPoint, data) {
 		return axios.post(endPoint, data);
 	},
+	sendGetWithHeader(endPoint, headers) {
+		return axios.get(endPoint, { headers: headers});
+	},
 	sendPostWithHeader(endPoint, data, headers) {
 		return axios.post(endPoint, data, { headers: headers});
 	}
