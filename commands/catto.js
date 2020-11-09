@@ -1,4 +1,3 @@
-const request = require('request');
 const httpRequestsHelper = require('../helpers/http-requests-helper');
 
 module.exports = {
@@ -7,8 +6,9 @@ module.exports = {
 	enabled: true,
 	execute(config, message, args) {
 
-		httpRequestsHelper.sendStandardRequest('https://aws.random.cat/meow', function (response) {
-			message.channel.send(response.file);
-		});
+		httpRequestsHelper.sendBasicGet('https://aws.random.cat/meow')
+			.then((response) => {
+				message.channel.send(response.data.file);
+			});
 	},
 };

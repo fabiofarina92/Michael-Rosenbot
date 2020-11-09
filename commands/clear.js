@@ -2,7 +2,7 @@
 module.exports = {
 	name: 'clear',
 	description: 'Clear messages with number. Default 1 message',
-	usage: '--clear <number>',
+	usage: 'clear <number>',
 	enabled: true,
 	execute(config, message, args) {
         let messageDeleteCount = 1
@@ -11,17 +11,14 @@ module.exports = {
         } else {
             message.channel.send('Number specified ain\'t no number.')
         }
-        if (messageDeleteCount > 10) {
+        if (messageDeleteCount > 40) {
             message.channel.send('That\'s too many messages. I ain\'t doin\' that. Cappin\' at 10')
-            messageDeleteCount = 10
+            messageDeleteCount = 40
         }        
         if (messageDeleteCount < 1) {
             message.channel.send('At least try and delete one message')
             messageDeleteCount = 1
         }
-
         message.channel.bulkDelete(messageDeleteCount)
-
-		message.delete({ timeout: 1000, reason: 'No messages' });
 	},
 };

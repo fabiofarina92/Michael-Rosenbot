@@ -2,8 +2,9 @@ module.exports = {
   name: "roll",
   description:
     "Executes a command a random number of times between 1 and the specified value",
-  enabled: true,
-  usage: "`roll <number>d<command>` eg. `roll 5dcatto`",
+  enabled: false,
+  usage: "roll <number>d<command>`",
+  example: "roll 5dcatto",
   execute(config, message, args) {
     let vals = args[0].match(/([0-9]*)d(\w*)/);
     let count = vals[1];

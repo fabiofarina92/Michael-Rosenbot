@@ -3,7 +3,7 @@ const ytdl = require('ytdl-core');
 module.exports = {
 	name: 'nice',
 	description: 'Get a special message from Michael',
-	usage: '--nice, --nice full, --nice dank, --nice multi, --nice other',
+	usage: 'nice, nice full, nice dank, nice multi, nice other',
 	enabled: true,
 	execute(config, message, args) {
 		let video = 'https://www.youtube.com/watch?v=CYqq9Ovz_9c';

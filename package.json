@@ -4,13 +4,14 @@
   "description": "test discord bot",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@discordjs/opus": "^0.3.2",
+    "axios": "^0.21.0",
     "bufferutil": "^4.0.1",
     "canvas": "^2.6.1",
     "canvas-text-wrapper": "^0.10.2",
@@ -24,5 +25,8 @@
     "xmlhttprequest": "^1.8.0",
     "youtube-search": "^1.1.4",
     "ytdl-core": "^3.2.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
   }
 }
