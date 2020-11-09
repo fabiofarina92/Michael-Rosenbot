@@ -51,6 +51,7 @@ module.exports = {
               // message.channel.send(
               //   `${stateObjects[stateItem].displayName}: \`${state.state}\``
               // );
+              signale.info(state);
               responseList = responseList.concat(
                 `${stateObjects[stateItem].displayName}: \`${state.state}\`\n`
               )

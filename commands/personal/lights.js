@@ -5,17 +5,22 @@ const { hassIoToken, hassIoEndpoints } = require("../../secrets.json");
 module.exports = {
   name: "light",
   description: "Turn on lights",
-  usage: "light [room*, colour, preset]",
+  usage: "light [room*, colour, preset, brightness]",
   enabled: true,
+  elevated: true,
   execute(config, message, args) {
-    let { foundRoom, foundColour, preset } = parseArguments(args);
+    let { foundRoom, foundColour, foundPreset, foundBrightness } = parseArguments(args);
 
-    let { url, colour } = getCorrectEndPoint(preset, foundColour);
+    let { url, colour } = getCorrectEndPoint(foundPreset, foundColour, foundBrightness);
     foundColour = colour;
 
-    let jsonData = foundColour
-      ? { entity_id: `light.${foundRoom.name}`, color_name: foundColour }
-      : { entity_id: `light.${foundRoom.name}` };
+    let jsonData = { entity_id: `light.${foundRoom.name}` };
+    if (foundColour) {
+      jsonData.color_name = foundColour;
+    }
+    if (foundBrightness) {
+      jsonData.brightness_pct = foundBrightness;
+    }
     const data = JSON.stringify(jsonData);
 
     httpRequestsHelper
@@ -32,7 +37,8 @@ module.exports = {
 function parseArguments(args) {
   foundRoom = null;
   foundColour = null;
-  preset = null;
+  foundPreset = null;
+  foundBrightness = null;
   let matcher = {
     rooms: {
       bedroom: { name: "bedroom", match: ["bed", "bedroom"], rgb: false },
@@ -43,7 +49,7 @@ function parseArguments(args) {
       },
       study: { name: "study", match: ["study", "computer"], rbg: true },
     },
-    colours: ["red", "green", "blue", "purple"],
+    colours: ["red", "green", "blue", "purple", "yellow", "white"],
     presets: ["on", "off", "toggle"],
   };
   args.forEach((arg) => {
@@ -56,16 +62,19 @@ function parseArguments(args) {
       foundColour = arg;
     }
     if (matcher.presets.includes(arg)) {
-      preset = arg;
+      foundPreset = arg;
+    }
+    if(!isNaN(arg)) {
+      foundBrightness = arg;
     }
   });
   if (!foundRoom.rbg) {
     foundColour = null;
   }
-  return { foundRoom, foundColour, preset };
+  return { foundRoom, foundColour, foundPreset, foundBrightness };
 }
 
-function getCorrectEndPoint(preset, colour) {
+function getCorrectEndPoint(preset, colour, brightness) {
   let url = hassIoEndpoints.LIGHT_ON;
   if (preset) {
     switch (preset) {
@@ -86,6 +95,9 @@ function getCorrectEndPoint(preset, colour) {
   } else {
     if (!colour) {
       url = hassIoEndpoints.LIGHT_TOGGLE;
+    }
+    if (brightness) {
+      url = hassIoEndpoints.LIGHT_ON;
     }
   }
   return { url, colour };
