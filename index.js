@@ -43,6 +43,13 @@ for (const file of personalCommandFiles) {
 }
 
 client.on('message', (message) => {
+	signale.info(message.author);
+	const val = Math.floor(Math.random() * 10);
+	if (message.author.id == configuration.JOSH) {
+		if (val <= 3) {
+			message.react('🖕');
+		}
+	}
 	client.user.setUsername('Michael Rosen');
 	client.user.setActivity('with hot food');
 	config.commands = client.commands;
@@ -51,7 +58,6 @@ client.on('message', (message) => {
 	const args = message.content.slice(configuration.PREFIX.length).split(/ +/);
 	const command = args.shift().toLowerCase();
 
-	signale.info(message.author);
 	if (!client.commands.has(command) && message.author.id == configuration.JOSH) {
 		message.react('🖕');
 		message.reply("That's the wrong command, Josh!");
