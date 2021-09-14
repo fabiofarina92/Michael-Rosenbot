@@ -2,7 +2,7 @@ module.exports = {
   name: "roll",
   description:
     "Executes a command a random number of times between 1 and the specified value",
-  enabled: false,
+  enabled: true,
   usage: "roll <number>d<command>",
   example: "roll 5dcatto",
   execute(config, message, args) {

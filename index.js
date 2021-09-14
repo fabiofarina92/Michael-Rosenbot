@@ -73,9 +73,9 @@ commandDB.get('customCommands').value().forEach((customCommand) => {
 
 client.on('message', (message) => {
 	signale.info(message.author);
-	const val = Math.floor(Math.random() * 10);
+	const rnd1to100 = Math.floor(Math.random() * (100 - 1 + 1) + 1)
 	if (message.author.id === configuration.JOSH) {
-		if (val <= 2) {
+		if (rnd1to100  <= 5) {
 			message.react('🖕');
 		}
 	}

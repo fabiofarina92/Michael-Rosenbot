@@ -22,7 +22,10 @@ module.exports = {
 			return message.reply('please join a voice channel first');
 		}
 		channel.join().then(connection => {
-			const stream = ytdl(video, { filter: 'audioonly' });
+			const stream = ytdl(video, {
+				filter: 'audioonly', quality: 'highestaudio',
+				highWaterMark: 1 << 25
+			});
 			const dispatcher = connection.play(stream);
 
 			dispatcher.on('end', () => {

@@ -18,10 +18,10 @@ module.exports = {
             switch (action) {
                 case 'add':
                     if (commandExists) {
-                        signale.info('Command %s already exists', command);
-                        message.channel.send(`Command ${command} already exists!`)
+                        signale.info('Command `%s` already exists', command);
+                        message.channel.send(`Command \`${command}\` already exists!`)
                     } else {
-                        signale.info('Creating command: %s', command);
+                        signale.info('Creating command: `%s`', command);
                         config.commandDB.get('customCommands').push({ command, result }).write();
                         config.commands.set(command, {
                             name: command,
@@ -29,17 +29,17 @@ module.exports = {
                                 message.channel.send(result);
                             }
                         })
-	                    message.channel.send(`Command ${command} has been created.`)
+	                    message.channel.send(`Command \`${command}\` has been created.`)
                     }
                     break;
                 case 'rm':
                     if (!commandExists) {
                         signale.info('Command %s does not exist', command);
-                        message.channel.send(`Command ${command} does not exists!`)
+                        message.channel.send(`Command \`${command}\` does not exists!`)
                     } else {
                         config.commandDB.get('customCommands').remove({ command }).write();
                         config.commands.delete(command);
-                        message.channel.send(`Command ${command} has been removed.`)
+                        message.channel.send(`Command \`${command}\` has been removed.`)
 
                     }
                     break;
