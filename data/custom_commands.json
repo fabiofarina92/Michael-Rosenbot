@@ -1,3 +1,8 @@
 {
-  "customCommands": []
+  "customCommands": [
+    {
+      "command": "custom",
+      "result": "test"
+    }
+  ]
 }
