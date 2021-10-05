@@ -1,8 +1,0 @@
-{
-  "customCommands": [
-    {
-      "command": "custom",
-      "result": "test"
-    }
-  ]
-}
