@@ -1,4 +1,3 @@
-const httpRequestsHelper = require('../../helpers/http-requests-helper');
 module.exports = {
 	name: 'end',
 	description: 'End current queue',

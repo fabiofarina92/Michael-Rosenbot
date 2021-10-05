@@ -44,11 +44,9 @@ client.on('messageReactionAdd', async (reaction, user) => {
 			// Return as `reaction.message.author` may be undefined/null
 			return;
 		}
-
 	}
 
-	signale.info(user);
-	if (reaction.message.channel === '894793988580716564') return;
+	if (reaction.message.channel === configuration.PINS_CHANNEL) return;
 	if (user.username === 'prae' || user.username === 'jahoo' || user.username === 'rgrwco' || user.username === 'Dezine') {
 		if (reaction.emoji.name === '📌') {
 
