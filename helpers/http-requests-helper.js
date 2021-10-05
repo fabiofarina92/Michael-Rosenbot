@@ -1,49 +1,57 @@
+const signale = require('signale');
 const request = require('request');
-const { hassMediaExtractor, hassChromeCast } = require('../secrets.json');
+const axios = require('axios');
+const ytdl = require('ytdl-core');
 
 module.exports = {
-
-	sendHassMediaRequest(videoUrl) {
-		const url = hassMediaExtractor;
-
-		const formData = {
-			entity_id: hassChromeCast,
-			media_content_id: videoUrl,
-			media_content_type: 'video/best'
-		};
-
-		const options = {
-			method: 'post',
-			body: formData,
-			json: true,
-			url: url
-		};
-
-		request(options, function (err, res, body) {
-			if (err) {
-				console.error('error posting json: ', err);
-				throw err
-			}
-			var headers = res.headers;
-			var statusCode = res.statusCode;
-			console.log('headers: ', headers);
-			console.log('statusCode: ', statusCode);
-			console.log('body: ', body)
-		})
-	},
-
 	sendStandardRequest(endpoint, callback) {
 		request(endpoint, function (error, response, body) {
-			console.log('error:', error); // Print the error if one occurred
-			console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-
 			const content = JSON.parse(body);
-			console.log('body:', content); // Print the HTML for the Google homepage.
-			console.log('string body', content.message);
-
+			signale.info('Response content: %s', content);
 			callback(content);
 
 		});
+	},
+	sendPostRequestAsCallback(endPoint, data, callback) {
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", endPoint, true);
+		xhr.setRequestHeader("Content-Type", "application/json");
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				let json = JSON.parse(xhr.responseText);
+				callback(json);
+			}
+		}
+		xhr.send(JSON.stringify(data));
+	},
+	sendBasicGet(endPoint) {
+		return axios.get(endPoint);
+	},
+	sendBasicPost(endPoint, data) {
+		return axios.post(endPoint, data);
+	},
+	sendGetWithHeader(endPoint, headers) {
+		return axios.get(endPoint, { headers: headers});
+	},
+	sendPostWithHeader(endPoint, data, headers) {
+		return axios.post(endPoint, data, { headers: headers});
+	},
+
+	play(serverQueue, song) {
+	if (!song) {
+		serverQueue.playing = false;
+		serverQueue.voiceChannel.leave();
 	}
+	const stream = ytdl(song.url, { filter: 'audioonly' });
+	serverQueue.playing = true;
+	serverQueue.connection.play(stream)
+			.on('end', () => {
+				serverQueue.songs.shift();
+				play(serverQueue, serverQueue.songs[0])
+			})
+			.on('error', (error) => {
+				signale.error(error)
+			})
+}
 
 };

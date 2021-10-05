@@ -3,7 +3,7 @@ const ytdl = require('ytdl-core');
 module.exports = {
 	name: 'initd',
 	description: 'Play Initial D songs',
-	usage: '--initd dejavu, --initd gas, --initd running',
+	usage: 'initd dejavu, initd gas, initd running',
 	enabled: true,
 	execute(config, message, args) {
 		let video = 'https://www.youtube.com/watch?v=dv13gl0a-FA';
@@ -17,18 +17,20 @@ module.exports = {
 			video = 'https://www.youtube.com/watch?v=sFODclG8mBY';
 		}
 		if (message.channel.type !== 'text') return;
-		const { voiceChannel } = message.member;
-		if (!voiceChannel) {
+		const { channel } = message.member.voice;
+		if (!channel) {
 			return message.reply('please join a voice channel first');
 		}
-		voiceChannel.join().then(connection => {
-			const stream = ytdl(video, { filter: 'audioonly' });
-			const dispatcher = connection.playStream(stream);
+		channel.join().then(connection => {
+			const stream = ytdl(video, {
+				filter: 'audioonly', quality: 'highestaudio',
+				highWaterMark: 1 << 25
+			});
+			const dispatcher = connection.play(stream);
 
 			dispatcher.on('end', () => {
-				voiceChannel.leave();
+				channel.leave();
 			});
 		});
-		message.delete(1000);
 	},
 };

@@ -4,19 +4,39 @@
   "description": "test discord bot",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
+    "sender": "node sender.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "data/*"
+    ]
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^11.5.1",
+    "@discordjs/opus": "^0.3.2",
+    "@discordjs/voice": "^0.6.0",
+    "axios": "^0.21.0",
+    "bufferutil": "^4.0.1",
+    "canvas": "^2.6.1",
+    "canvas-text-wrapper": "^0.10.2",
+    "discord.js": "^12.3.1",
+    "ffmpeg": "0.0.4",
     "ffmpeg-binaries": "^3.2.2",
+    "inquirer": "^7.3.3",
+    "lowdb": "^1.0.0",
     "node-opus": "^0.3.3",
-    "request": "^2.88.0",
+    "request": "^2.88.2",
+    "signale": "^1.4.0",
     "snekfetch": "^4.0.4",
-    "winston": "^2.4.4",
+    "xmlhttprequest": "^1.8.0",
     "youtube-search": "^1.1.4",
-    "ytdl-core": "^0.20.4"
+    "ytdl-core": "^4.9.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6",
+    "youtube-sr": "^4.1.7"
   }
 }
