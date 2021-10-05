@@ -37,6 +37,7 @@ module.exports = {
                         signale.info('Command %s does not exist', command);
                         message.channel.send(`Command \`${command}\` does not exists!`)
                     } else {
+                        if (command === 'cmd') return;
                         config.commandDB.get('customCommands').remove({ command }).write();
                         config.commands.delete(command);
                         message.channel.send(`Command \`${command}\` has been removed.`)

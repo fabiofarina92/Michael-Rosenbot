@@ -17,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "@discordjs/opus": "^0.3.2",
+    "@discordjs/voice": "^0.6.0",
     "axios": "^0.21.0",
     "bufferutil": "^4.0.1",
     "canvas": "^2.6.1",
@@ -35,6 +36,7 @@
     "ytdl-core": "^4.9.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.6",
+    "youtube-sr": "^4.1.7"
   }
 }

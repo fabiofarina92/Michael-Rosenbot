@@ -4,7 +4,7 @@ module.exports = {
 	name: 'tts',
 	description: 'Play a text to speech command',
 	usage: 'tts <message>',
-	enabled: true,
+	enabled: false,
 	execute(config, message, args) {
 
 		if (message.channel.type !== 'text') return;

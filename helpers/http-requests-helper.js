@@ -1,6 +1,7 @@
 const signale = require('signale');
 const request = require('request');
 const axios = require('axios');
+const ytdl = require('ytdl-core');
 
 module.exports = {
 	sendStandardRequest(endpoint, callback) {
@@ -34,6 +35,23 @@ module.exports = {
 	},
 	sendPostWithHeader(endPoint, data, headers) {
 		return axios.post(endPoint, data, { headers: headers});
+	},
+
+	play(serverQueue, song) {
+	if (!song) {
+		serverQueue.playing = false;
+		serverQueue.voiceChannel.leave();
 	}
+	const stream = ytdl(song.url, { filter: 'audioonly' });
+	serverQueue.playing = true;
+	serverQueue.connection.play(stream)
+			.on('end', () => {
+				serverQueue.songs.shift();
+				play(serverQueue, serverQueue.songs[0])
+			})
+			.on('error', (error) => {
+				signale.error(error)
+			})
+}
 
 };

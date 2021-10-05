@@ -1,18 +1,18 @@
+const httpRequestsHelper = require('../../helpers/http-requests-helper');
 module.exports = {
-	name: 'leave',
-	description: 'Forces Rosenbot to leave channel',
+	name: 'end',
+	description: 'End current queue',
 	enabled: true,
-	execute(config, message, args) {
-		if (message.channel.type !== 'text') return;
+	async execute(config, message, args) {
 		const { channel } = message.member.voice;
 		if (!channel) {
 			return message.reply('Not in a channel');
 		} else {
 			channel.leave();
 			if (config.serverQueue) {
+				config.serverQueue.songs = [];
 				config.serverQueue.playing = false;
 			}
 		}
-		message.channel.send('Go fuck yourself');
 	},
 };
