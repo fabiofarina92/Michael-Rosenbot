@@ -69,4 +69,4 @@ secrets.json
 # ignore Intellij folder
 .idea
 
-./data/*.json
+data
