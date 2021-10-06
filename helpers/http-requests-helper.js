@@ -2,6 +2,7 @@ const signale = require('signale');
 const request = require('request');
 const axios = require('axios');
 const ytdl = require('ytdl-core');
+const embedFormatter = require('../utils/embed-formatter');
 
 module.exports = {
 	sendStandardRequest(endpoint, callback) {
@@ -16,7 +17,7 @@ module.exports = {
 		let xhr = new XMLHttpRequest();
 		xhr.open("POST", endPoint, true);
 		xhr.setRequestHeader("Content-Type", "application/json");
-		xhr.onreadystatechange = function() {
+		xhr.onreadystatechange = function () {
 			if (xhr.readyState === 4 && xhr.status === 200) {
 				let json = JSON.parse(xhr.responseText);
 				callback(json);
@@ -31,27 +32,35 @@ module.exports = {
 		return axios.post(endPoint, data);
 	},
 	sendGetWithHeader(endPoint, headers) {
-		return axios.get(endPoint, { headers: headers});
+		return axios.get(endPoint, { headers: headers });
 	},
 	sendPostWithHeader(endPoint, data, headers) {
-		return axios.post(endPoint, data, { headers: headers});
+		return axios.post(endPoint, data, { headers: headers });
 	},
 
-	play(serverQueue, song) {
-	if (!song) {
-		serverQueue.playing = false;
-		serverQueue.voiceChannel.leave();
+	play(serverQueue, song, message) {
+		if (!song) {
+			serverQueue.playing = false;
+			serverQueue.voiceChannel.leave();
+		}
+		const stream = ytdl(song.url, { filter: 'audioonly' });
+		message.channel.send(embedFormatter.songFormat(serverQueue.songs[0]))
+		serverQueue.playing = true;
+		serverQueue.connection.play(stream)
+				.on('finish', () => {
+					signale.info('hit end');
+					serverQueue.songs.shift();
+					signale.info('Next song: ', serverQueue.songs[0]);
+					this.play(serverQueue, serverQueue.songs[0], message)
+				})
+				.on('error', (error) => {
+					signale.error(error)
+				})
+	},
+
+	async getAuthorDisplayName (msg) {
+		const member = await msg.guild.member(msg.author);
+		return member ? member.nickname : msg.author.username;
 	}
-	const stream = ytdl(song.url, { filter: 'audioonly' });
-	serverQueue.playing = true;
-	serverQueue.connection.play(stream)
-			.on('end', () => {
-				serverQueue.songs.shift();
-				play(serverQueue, serverQueue.songs[0])
-			})
-			.on('error', (error) => {
-				signale.error(error)
-			})
-}
 
 };

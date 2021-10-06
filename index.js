@@ -36,6 +36,7 @@ client.on('raw', (packet) => {
 })
 
 client.on('messageReactionAdd', async (reaction, user) => {
+	if (!reaction || !user) return;
 	if (reaction.partial) {
 		try {
 			await reaction.fetch();

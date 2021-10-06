@@ -2,7 +2,6 @@ const YouTube = require("youtube-sr").default;
 const httpRequestsHelper = require('../../helpers/http-requests-helper');
 const signale = require('signale');
 
-
 module.exports = {
 	name: 'play',
 	description: 'Play audio from youtube',
@@ -17,18 +16,19 @@ module.exports = {
 
 		await searchYoutube(config, args.join(), message, channel)
 
-		signale.info(config.serverQueue);
 		if (!config.serverQueue.playing) {
 			config.serverQueue.connection = await config.serverQueue.voiceChannel.join();
-			message.reply(`Now playing ${config.serverQueue.songs[0].title}`)
-			httpRequestsHelper.play(config.serverQueue, config.serverQueue.songs[0])
+			// message.reply(`Now playing ${ config.serverQueue.songs[0].title }`)
+			httpRequestsHelper.play(config.serverQueue, config.serverQueue.songs[0], message)
+		} else {
+			message.channel.send(`Queued up ${config.serverQueue.songs[1].title}`)
 		}
 	},
 };
 
 const searchYoutube = async (config, query, message, channel) => {
 	const videos = await YouTube.search(query, { limit: 1 }).catch(
-			async function() {
+			async function () {
 				message.reply('Error processing your request');
 			}
 	);
@@ -47,7 +47,14 @@ const searchYoutube = async (config, query, message, channel) => {
 			playing: false
 		};
 	}
-	config.serverQueue.songs.push({ title: videos[0].title, url: `https://www.youtube.com/watch?v=${videos[0].id}`})
+	signale.info(videos[0]);
+	config.serverQueue.songs.push({
+		title: videos[0].title,
+		url: `https://www.youtube.com/watch?v=${ videos[0].id }`,
+		requestor: { name: message.guild.member(message.author).displayName, avatar: message.author.avatarURL() },
+		channel: { name: videos[0].channel.name, icon: videos[0].channel.icon.url  },
+		thumbnail: videos[0].thumbnail
+	})
 
 	signale.info(config.serverQueue.songs);
 
