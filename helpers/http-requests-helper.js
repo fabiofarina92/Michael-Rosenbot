@@ -1,4 +1,4 @@
-const signale = require('signale');
+const signale = require('./logger');
 const request = require('request');
 const axios = require('axios');
 const ytdl = require('ytdl-core');

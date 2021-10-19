@@ -1,4 +1,4 @@
-const signale = require("signale");
+const signale = require("../../helpers/logger");
 
 module.exports = {
 	name: 'cmd',

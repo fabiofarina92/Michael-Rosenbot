@@ -1,4 +1,3 @@
-const signale = require('signale');
 const moment = require('moment');
 const httpRequestsHelper = require('../helpers/http-requests-helper');
 

@@ -3,7 +3,7 @@ const path = require('path');
 const { Client, Intents, Collection, MessageEmbed } = require('discord.js');
 const configuration = require('./config.json');
 const { token } = require('./secrets.json');
-const signale = require('signale');
+const signale = require('./helpers/logger');
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
 

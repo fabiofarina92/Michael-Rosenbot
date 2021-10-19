@@ -1,4 +1,4 @@
-const signale = require("signale");
+const signale = require("../../helpers/logger");
 const httpRequestsHelper = require("../../helpers/http-requests-helper");
 const { hassIoToken, hassIoEndpoints } = require("../../secrets.json");
 

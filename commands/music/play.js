@@ -1,6 +1,6 @@
 const YouTube = require("youtube-sr").default;
 const httpRequestsHelper = require('../../helpers/http-requests-helper');
-const signale = require('signale');
+const signale = require('../../helpers/logger');
 
 module.exports = {
 	name: 'play',
