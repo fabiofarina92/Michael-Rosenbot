@@ -1,8 +1,8 @@
-const signale = require('signale');
+const signale = require("signale");
 
 signale.config({
-	displayTimestamp: true,
-	displayFilename: true
-})
+  displayTimestamp: true,
+  displayFilename: true,
+});
 
 module.exports = signale;

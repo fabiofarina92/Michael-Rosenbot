@@ -9,9 +9,15 @@ module.exports = {
   enabled: true,
   elevated: true,
   execute(config, message, args) {
-    let { foundRoom, foundColour, foundState, foundBrightness, foundPreset } = parseArguments(args);
+    let { foundRoom, foundColour, foundState, foundBrightness, foundPreset } =
+      parseArguments(args);
 
-    let { url, colour } = getCorrectEndPoint(foundState, foundColour, foundBrightness, foundPreset);
+    let { url, colour } = getCorrectEndPoint(
+      foundState,
+      foundColour,
+      foundBrightness,
+      foundPreset
+    );
     foundColour = colour;
 
     let jsonData = { entity_id: `light.${foundRoom.name}` };
@@ -54,7 +60,7 @@ function parseArguments(args) {
       study: { name: "study", match: ["study", "computer"], rgb: true },
     },
     colours: ["red", "green", "blue", "purple", "yellow", "white"],
-    states: ["on", "off", "toggle"], 
+    states: ["on", "off", "toggle"],
     presets: ["cozy", "bright", "warm", "fridge"],
   };
   args.forEach((arg) => {
@@ -72,7 +78,7 @@ function parseArguments(args) {
     if (matcher.presets.includes(arg) && !foundPreset) {
       foundPreset = getPresetSettings(arg);
     }
-    if(!isNaN(arg)) {
+    if (!isNaN(arg)) {
       foundBrightness = arg;
     }
   });
@@ -111,13 +117,13 @@ function getCorrectEndPoint(state, colour, brightness, preset) {
   return { url, colour };
 }
 
-function getPresetSettings(preset) { 
+function getPresetSettings(preset) {
   let presetList = {
-    cozy: { brightness_pct: 60, rgb_color: [ 126, 87, 246 ] },
-    bright: { brightness_pct: 95, rgb_color: [ 255, 255, 255 ] },
-    warm: { brightness_pct: 75, rgb_color: [ 224, 133, 13 ] },
-    fridge: { brightness_pct: 75, rgb_color: [ 237, 14, 14 ] },
-  }
+    cozy: { brightness_pct: 60, rgb_color: [126, 87, 246] },
+    bright: { brightness_pct: 95, rgb_color: [255, 255, 255] },
+    warm: { brightness_pct: 75, rgb_color: [224, 133, 13] },
+    fridge: { brightness_pct: 75, rgb_color: [237, 14, 14] },
+  };
 
   return presetList[preset];
 }

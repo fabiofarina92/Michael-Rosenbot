@@ -41,7 +41,7 @@ module.exports = {
       .sendGetWithHeader(url, { Authorization: `Bearer ${hassIoToken}` })
       .then((response) => {
         // signale.info(response.data);
-        let responseList = '';
+        let responseList = "";
         Object.keys(stateObjects).forEach((stateItem) => {
           response.data.forEach((state) => {
             if (state.entity_id == stateObjects[stateItem].entityId) {
@@ -54,11 +54,11 @@ module.exports = {
               signale.info(state);
               responseList = responseList.concat(
                 `${stateObjects[stateItem].displayName}: \`${state.state}\`\n`
-              )
+              );
             }
           });
         });
-        responseList = responseList.concat("Fridge mode: \`sexy\`");
+        responseList = responseList.concat("Fridge mode: `sexy`");
         message.channel.send(responseList);
       })
       .catch((error) => {

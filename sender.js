@@ -53,8 +53,8 @@ client.on("ready", () => {
               message: "Send > ",
             },
           ];
-            const channel = client.channels.cache.get(selectedChannel[0]);
-            prompt(promptData, channel);
+          const channel = client.channels.cache.get(selectedChannel[0]);
+          prompt(promptData, channel);
         });
     });
 });
