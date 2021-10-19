@@ -165,6 +165,7 @@ client.on('message', (message) => {
 	client.user.setActivity('with hot food');
 	config.commands = client.commands;
 	if (!message.content.match(configuration.PREFIXMATCH) || message.author.bot) return;
+	signale.info(message.content);
 	const args = message.content.split(/ +/);
 	args.shift();
 	const command = args.shift().toLowerCase();

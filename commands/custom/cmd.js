@@ -11,7 +11,7 @@ module.exports = {
         signale.info('command', command);
         signale.info('result', result);
 
-        signale.info('commandDB', config.commandDB.getState());
+        // signale.info('commandDB', config.commandDB.getState());
 
         if (verifyAction(action)) {
             let commandExists = hasCommand(config.commands, config.commandDB.getState(), command);
