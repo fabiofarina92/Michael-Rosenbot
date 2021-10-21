@@ -5,10 +5,6 @@ module.exports = {
   enabled: true,
   async execute(config, message, args) {
     config.serverQueue.songs.shift();
-    httpRequestsHelper.play(
-      config.serverQueue,
-      config.serverQueue.songs[0],
-      message
-    );
+    httpRequestsHelper.play(config.serverQueue, config.serverQueue.songs[0], message);
   },
 };

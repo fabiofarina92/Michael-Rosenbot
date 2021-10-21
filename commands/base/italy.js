@@ -1,6 +1,7 @@
 module.exports = {
   name: "🤌",
   description: "Whatsammatteryou???",
+  usage: "🤌",
   enabled: true,
   execute(config, message, args) {
     message.react("🇮🇹");

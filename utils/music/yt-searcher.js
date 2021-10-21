@@ -23,9 +23,7 @@ module.exports.ytSearcher = async function search(track) {
 
 const concatSongNameAndArtists = (data) => {
   let artists = "";
-  data.artists.forEach(
-    (artist) => (artists = artists.concat(" ", artist.name))
-  );
+  data.artists.forEach((artist) => (artists = artists.concat(" ", artist.name)));
   const songName = data.name;
   return `${songName} ${artists}`;
 };

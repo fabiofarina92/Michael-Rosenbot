@@ -52,9 +52,7 @@ module.exports = {
               //   `${stateObjects[stateItem].displayName}: \`${state.state}\``
               // );
               signale.info(state);
-              responseList = responseList.concat(
-                `${stateObjects[stateItem].displayName}: \`${state.state}\`\n`
-              );
+              responseList = responseList.concat(`${stateObjects[stateItem].displayName}: \`${state.state}\`\n`);
             }
           });
         });

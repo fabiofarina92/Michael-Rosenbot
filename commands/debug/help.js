@@ -22,9 +22,7 @@ function commandPrinter(command) {
   let commandString = "";
   if (command.enabled) {
     commandString = commandString.concat(`**Command:** ${command.name}\n`);
-    commandString = commandString.concat(
-      `**Description:** ${command.description}\n`
-    );
+    commandString = commandString.concat(`**Description:** ${command.description}\n`);
     if (command.usage) {
       commandString = commandString.concat(`**Usage:** \`${command.usage}\`\n`);
     }

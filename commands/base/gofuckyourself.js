@@ -1,6 +1,7 @@
 module.exports = {
   name: "gofuckyourself",
   description: "Go fuck yourself",
+  usage: "gofuckyourself <person>",
   enabled: true,
   execute(config, message, args) {
     let target = "";

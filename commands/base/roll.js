@@ -1,7 +1,6 @@
 module.exports = {
   name: "roll",
-  description:
-    "Executes a command a random number of times between 1 and the specified value",
+  description: "Executes a command a random number of times between 1 and the specified value",
   enabled: true,
   usage: "roll <number>d<command>",
   example: "roll 5dcatto",
@@ -18,28 +17,14 @@ module.exports = {
 
     if (!isNaN(command)) {
       if (count > 100) {
-        message.reply(
-          "I'm not rolling that many times. You can fuck right off."
-        );
+        message.reply("I'm not rolling that many times. You can fuck right off.");
         return;
       }
       let accumulatorString = "";
       for (let i = 0; i < count; i++) {
-        accumulatorString =
-          accumulatorString +
-          "D" +
-          (i + 1) +
-          ": `" +
-          (Math.floor(Math.random() * Number(command)) + 1) +
-          "`\n";
+        accumulatorString = accumulatorString + "D" + (i + 1) + ": `" + (Math.floor(Math.random() * Number(command)) + 1) + "`\n";
       }
-      let replyString =
-        "Your roll of " +
-        count +
-        "d" +
-        command +
-        " returned \n" +
-        accumulatorString;
+      let replyString = "Your roll of " + count + "d" + command + " returned \n" + accumulatorString;
       message.reply(replyString);
       return;
     }

@@ -21,9 +21,7 @@ client.on("ready", () => {
       },
     ])
     .then((guildAnswer) => {
-      selectedGuild = Object.keys(guilds).filter(
-        (g) => guilds[g].name === guildAnswer.guild
-      );
+      selectedGuild = Object.keys(guilds).filter((g) => guilds[g].name === guildAnswer.guild);
       let channels = {};
       guilds[selectedGuild].channels.cache.forEach((channel) => {
         channels[channel.id] = { name: channel.name, type: channel.type };
@@ -43,9 +41,7 @@ client.on("ready", () => {
           },
         ])
         .then((channelAnswer) => {
-          selectedChannel = Object.keys(channels).filter(
-            (c) => channels[c].name === channelAnswer.channel
-          );
+          selectedChannel = Object.keys(channels).filter((c) => channels[c].name === channelAnswer.channel);
           const promptData = [
             {
               type: "input",

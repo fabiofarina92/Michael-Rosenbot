@@ -41,6 +41,7 @@ module.exports = {
     if (!song) {
       serverQueue.playing = false;
       serverQueue.voiceChannel.leave();
+      return;
     }
     const stream = ytdl(song.url, { filter: "audioonly" });
     message.channel.send(embedFormatter.songFormat(serverQueue.songs[0]));

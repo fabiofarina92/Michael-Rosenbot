@@ -14,11 +14,7 @@ module.exports = {
     // signale.info('commandDB', config.commandDB.getState());
 
     if (verifyAction(action)) {
-      let commandExists = hasCommand(
-        config.commands,
-        config.commandDB.getState(),
-        command
-      );
+      let commandExists = hasCommand(config.commands, config.commandDB.getState(), command);
       switch (action) {
         case "add":
           if (commandExists) {
@@ -26,10 +22,7 @@ module.exports = {
             message.channel.send(`Command \`${command}\` already exists!`);
           } else {
             signale.info("Creating command: `%s`", command);
-            config.commandDB
-              .get("customCommands")
-              .push({ command, result })
-              .write();
+            config.commandDB.get("customCommands").push({ command, result }).write();
             config.commands.set(command, {
               name: command,
               execute(config, message, args) {

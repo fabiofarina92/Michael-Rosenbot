@@ -9,15 +9,9 @@ module.exports = {
   enabled: true,
   elevated: true,
   execute(config, message, args) {
-    let { foundRoom, foundColour, foundState, foundBrightness, foundPreset } =
-      parseArguments(args);
+    let { foundRoom, foundColour, foundState, foundBrightness, foundPreset } = parseArguments(args);
 
-    let { url, colour } = getCorrectEndPoint(
-      foundState,
-      foundColour,
-      foundBrightness,
-      foundPreset
-    );
+    let { url, colour } = getCorrectEndPoint(foundState, foundColour, foundBrightness, foundPreset);
     foundColour = colour;
 
     let jsonData = { entity_id: `light.${foundRoom.name}` };

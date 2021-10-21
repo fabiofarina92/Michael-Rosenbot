@@ -1,4 +1,5 @@
 const { MessageEmbed } = require("discord.js");
+const signale = require('../helpers/logger')
 module.exports = {
   songFormat(song) {
     const embed = new MessageEmbed();
@@ -12,4 +13,23 @@ module.exports = {
 
     return embed;
   },
+
+  pinFormat(message) {
+  	signale.info(message);
+    const embed = new MessageEmbed()
+        .setColor("#0099ff")
+        .setTitle("Pinned Message")
+        .setURL(message.url)
+        .setAuthor(message.author.username, message.author.avatarURL())
+        .setTimestamp()
+        .setDescription(message.content);
+
+    if (message.content === "") {
+      embed.setDescription("image");
+    }
+    if (message.attachments.first()) {
+      embed.setImage(message.attachments.first().attachment);
+    }
+    return embed;
+  }
 };

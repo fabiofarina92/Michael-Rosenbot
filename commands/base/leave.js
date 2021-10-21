@@ -1,6 +1,7 @@
 module.exports = {
   name: "leave",
   description: "Forces Rosenbot to leave channel",
+  usage: "leave",
   enabled: true,
   execute(config, message, args) {
     if (message.channel.type !== "text") return;

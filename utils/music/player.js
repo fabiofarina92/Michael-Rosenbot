@@ -26,17 +26,9 @@ class MusicPlayer {
     this.connection.on("stateChange", async (_, newState) => {
       switch (newState.status) {
         case VoiceConnectionStatus.Disconnected:
-          if (
-            newState.reason ===
-              VoiceConnectionDisconnectReason.WebSocketClose &&
-            newState.closeCode === 4014
-          ) {
+          if (newState.reason === VoiceConnectionDisconnectReason.WebSocketClose && newState.closeCode === 4014) {
             try {
-              await entersState(
-                this.connection,
-                VoiceConnectionStatus.Connecting,
-                5000
-              );
+              await entersState(this.connection, VoiceConnectionStatus.Connecting, 5000);
             } catch {
               this.connection.destroy();
             }
@@ -49,24 +41,16 @@ class MusicPlayer {
           break;
         case VoiceConnectionStatus.Destroyed:
           if (this.nowPlaying !== null) {
-            this.textChannel.client.guildData
-              .get(this.textChannel.guildId)
-              .queueHistory.unshift(this.nowPlaying);
+            this.textChannel.client.guildData.get(this.textChannel.guildId).queueHistory.unshift(this.nowPlaying);
           }
           this.stop();
           break;
         case VoiceConnectionStatus.Connecting:
         case VoiceConnectionStatus.Signalling:
           try {
-            await entersState(
-              this.connection,
-              VoiceConnectionStatus.Ready,
-              20000
-            );
+            await entersState(this.connection, VoiceConnectionStatus.Ready, 20000);
           } catch {
-            if (
-              this.connection.state.status !== VoiceConnectionStatus.Destroyed
-            ) {
+            if (this.connection.state.status !== VoiceConnectionStatus.Destroyed) {
               this.connection.destroy();
             }
           }
@@ -75,38 +59,26 @@ class MusicPlayer {
     });
 
     this.audioPlayer.on("stateChange", (oldState, newState) => {
-      if (
-        newState.status === AudioPlayerStatus.Idle &&
-        oldState.status !== AudioPlayerStatus.Idle
-      ) {
+      if (newState.status === AudioPlayerStatus.Idle && oldState.status !== AudioPlayerStatus.Idle) {
         if (this.nowPlaying !== null) {
-          this.textChannel.client.guildData
-            .get(this.textChannel.guildId)
-            .queueHistory.unshift(this.nowPlaying);
+          this.textChannel.client.guildData.get(this.textChannel.guildId).queueHistory.unshift(this.nowPlaying);
         }
         if (this.queue.length) {
           this.process(this.queue);
         } else {
           if (this.connection._state.status !== "destroyed") {
             this.connection.destroy();
-            this.textChannel.client.playerManager.delete(
-              this.textChannel.giuldId
-            );
+            this.textChannel.client.playerManager.delete(this.textChannel.giuldId);
           }
         }
       } else if (newState.status === AudioPlayerStatus.Playing) {
-        const queueHistory = this.textChannel.client.guildData.get(
-          this.textChannel.guildId
-        ).queueHistory;
+        const queueHistory = this.textChannel.client.guildData.get(this.textChannel.guildId).queueHistory;
         const playingEmbed = new MessageEmbed()
           .setThumbnail(this.nowPlaying.thumbnail)
           .setTitle(this.nowPlaying.title)
           .setColor("#ff0000")
           .addField("Duration", ":stopwatch:" + this.nowPlaying.duration, true)
-          .setFooter(
-            `Requested by ${this.nowPlaying.memberDisplayName}!`,
-            this.nowPlaying.memberAvatar
-          );
+          .setFooter(`Requested by ${this.nowPlaying.memberDisplayName}!`, this.nowPlaying.memberAvatar);
         if (queueHistory.length) {
           playingEmbed.addField("Previous Song", queueHistory[0].title, true);
         }
@@ -128,10 +100,7 @@ class MusicPlayer {
   }
 
   async process(queue) {
-    if (
-      this.audioPlayer.state.status !== AudioPlayerStatus.Idle ||
-      this.queue.length === 0
-    ) {
+    if (this.audioPlayer.state.status !== AudioPlayerStatus.Idle || this.queue.length === 0) {
       return;
     }
 

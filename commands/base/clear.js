@@ -11,9 +11,7 @@ module.exports = {
       message.channel.send("Number specified ain't no number.");
     }
     if (messageDeleteCount > 40) {
-      message.channel.send(
-        "That's too many messages. I ain't doin' that. Cappin' at 10"
-      );
+      message.channel.send("That's too many messages. I ain't doin' that. Cappin' at 10");
       messageDeleteCount = 40;
     }
     if (messageDeleteCount < 1) {
