@@ -63,50 +63,18 @@ client.commands = new Collection();
 const config = {};
 config.songQueue = [];
 
-for (const file of fs.readdirSync("./commands/base")) {
-  if (path.extname(file) === ".js") {
-    const command = require(`./commands/base/${file}`);
-    if (command.enabled) {
-      client.commands.set(command.name, command);
-    }
-  }
-}
+const cmdDirs = ["base", "debug", "music", "personal", "custom", "crypto"];
 
-for (const file of fs.readdirSync("./commands/debug")) {
-  if (path.extname(file) === ".js") {
-    const command = require(`./commands/debug/${file}`);
-    if (command.enabled) {
-      client.commands.set(command.name, command);
+cmdDirs.forEach((dir) => {
+  for (const file of fs.readdirSync(`./commands/${dir}`)) {
+    if (path.extname(file) === ".js") {
+      const command = require(`./commands/${dir}/${file}`);
+      if (command.enabled) {
+        client.commands.set(command.name, command);
+      }
     }
   }
-}
-
-for (const file of fs.readdirSync("./commands/music")) {
-  if (path.extname(file) === ".js") {
-    const command = require(`./commands/music/${file}`);
-    if (command.enabled) {
-      client.commands.set(command.name, command);
-    }
-  }
-}
-
-for (const file of fs.readdirSync("./commands/personal")) {
-  if (path.extname(file) === ".js") {
-    const command = require(`./commands/personal/${file}`);
-    if (command.enabled) {
-      client.commands.set(command.name, command);
-    }
-  }
-}
-
-for (const file of fs.readdirSync("./commands/custom")) {
-  if (path.extname(file) === ".js") {
-    const command = require(`./commands/custom/${file}`);
-    if (command.enabled) {
-      client.commands.set(command.name, command);
-    }
-  }
-}
+})
 
 const customCommandAdapter = new FileSync("./data/custom_commands.json");
 const commandDB = low(customCommandAdapter);
@@ -182,5 +150,7 @@ client.on("message", (message) => {
     message.reply("there was an error executing that command");
   }
 });
+
+
 
 // client.destroy();

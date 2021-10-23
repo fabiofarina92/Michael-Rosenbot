@@ -15,7 +15,6 @@ module.exports = {
   },
 
   pinFormat(message) {
-  	signale.info(message);
     const embed = new MessageEmbed()
         .setColor("#0099ff")
         .setTitle("Pinned Message")
@@ -31,5 +30,24 @@ module.exports = {
       embed.setImage(message.attachments.first().attachment);
     }
     return embed;
+  },
+
+  quoteFormat(message) {
+    const embed = new MessageEmbed()
+        .setColor("#9900FF")
+        .setTitle("Quote")
+        .setURL(message.url)
+        .setAuthor(message.author.username, message.author.avatarURL())
+        .setDescription(message.content);
+
+    if (message.content === "") {
+      embed.setDescription("image");
+    }
+    if (message.attachments.first()) {
+      embed.setImage(message.attachments.first().attachment);
+    }
+
+    return embed;
   }
+
 };

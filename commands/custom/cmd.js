@@ -4,6 +4,7 @@ module.exports = {
   name: "cmd",
   description: "Create and delete custom commands",
   enabled: true,
+  elevated: true,
   execute(config, message, args) {
     let { action, command, result } = parseArguments(args);
 
