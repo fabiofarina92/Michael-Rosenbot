@@ -1,9 +1,8 @@
 module.exports = {
   name: "roll",
-  description:
-    "Executes a command a random number of times between 1 and the specified value",
-  enabled: false,
-  usage: "roll <number>d<command>`",
+  description: "Executes a command a random number of times between 1 and the specified value",
+  enabled: true,
+  usage: "roll <number>d<command>",
   example: "roll 5dcatto",
   execute(config, message, args) {
     let vals = args[0].match(/([0-9]*)d(\w*)/);
@@ -12,22 +11,22 @@ module.exports = {
     let newArgs = args.splice(0, 1);
 
     if (!count || !command) {
-        message.reply("Invalid format. Please use `roll <number>d<command>`")
-        return
+      message.reply("Invalid format. Please use `roll <number>d<command>`");
+      return;
     }
 
     if (!isNaN(command)) {
-        if (count > 100) {
-            message.reply("I'm not rolling that many times. You can fuck right off.");
-            return;
-        }
-        let accumulatorString = '';
-        for (let i = 0; i < count; i++) {
-            accumulatorString = accumulatorString + 'D' + (i+1) + ': `' + (Math.floor(Math.random() * Number(command)) + 1) + '`\n'; 
-        }
-        let replyString = "Your roll of " + count + "d" + command + " returned \n" + accumulatorString;
-        message.reply(replyString);
+      if (count > 100) {
+        message.reply("I'm not rolling that many times. You can fuck right off.");
         return;
+      }
+      let accumulatorString = "";
+      for (let i = 0; i < count; i++) {
+        accumulatorString = accumulatorString + "D" + (i + 1) + ": `" + (Math.floor(Math.random() * Number(command)) + 1) + "`\n";
+      }
+      let replyString = "Your roll of " + count + "d" + command + " returned \n" + accumulatorString;
+      message.reply(replyString);
+      return;
     }
 
     if (count > 5) {
