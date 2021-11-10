@@ -37,6 +37,13 @@ module.exports = {
     return axios.post(endPoint, data, { headers: headers });
   },
 
+  async sendAsyncGet(endPoint) {
+    return await axios.get(endPoint);
+  },
+  async sendAsyncPost(endPoint, data) {
+    return await axios.post(endPoint, data);
+  },
+
   play(serverQueue, song, message) {
     if (!song) {
       serverQueue.playing = false;

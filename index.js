@@ -62,8 +62,9 @@ client.commands = new Collection();
 
 const config = {};
 config.songQueue = [];
+config.guilds = client.guilds.cache;
 
-const cmdDirs = ["base", "debug", "music", "personal", "custom", "crypto"];
+const cmdDirs = ["base", "debug", "music", "personal", "custom", "crypto", "suggest"];
 
 cmdDirs.forEach((dir) => {
   for (const file of fs.readdirSync(`./commands/${dir}`)) {
@@ -74,7 +75,7 @@ cmdDirs.forEach((dir) => {
       }
     }
   }
-})
+});
 
 const customCommandAdapter = new FileSync("./data/custom_commands.json");
 const commandDB = low(customCommandAdapter);
@@ -107,7 +108,7 @@ client.on("message", (message) => {
     });
   const rnd1to100 = Math.floor(Math.random() * (100 - 1 + 1) + 1);
   if (message.author.id === configuration.JOSH) {
-    if (rnd1to100 <= 5) {
+    if (rnd1to100 <= 2) {
       message.react("🖕");
     }
   }
@@ -150,7 +151,5 @@ client.on("message", (message) => {
     message.reply("there was an error executing that command");
   }
 });
-
-
 
 // client.destroy();

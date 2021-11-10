@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const signale = require('../helpers/logger')
+const signale = require("../helpers/logger");
 module.exports = {
   songFormat(song) {
     const embed = new MessageEmbed();
@@ -16,12 +16,12 @@ module.exports = {
 
   pinFormat(message) {
     const embed = new MessageEmbed()
-        .setColor("#0099ff")
-        .setTitle("Pinned Message")
-        .setURL(message.url)
-        .setAuthor(message.author.username, message.author.avatarURL())
-        .setTimestamp()
-        .setDescription(message.content);
+      .setColor("#0099ff")
+      .setTitle("Pinned Message")
+      .setURL(message.url)
+      .setAuthor(message.author.username, message.author.avatarURL())
+      .setTimestamp()
+      .setDescription(message.content);
 
     if (message.content === "") {
       embed.setDescription("image");
@@ -33,12 +33,7 @@ module.exports = {
   },
 
   quoteFormat(message) {
-    const embed = new MessageEmbed()
-        .setColor("#9900FF")
-        .setTitle("Quote")
-        .setURL(message.url)
-        .setAuthor(message.author.username, message.author.avatarURL())
-        .setDescription(message.content);
+    const embed = new MessageEmbed().setColor("#9900FF").setTitle("Quote").setURL(message.url).setAuthor(message.author.username, message.author.avatarURL()).setDescription(message.content);
 
     if (message.content === "") {
       embed.setDescription("image");
@@ -48,6 +43,14 @@ module.exports = {
     }
 
     return embed;
-  }
+  },
 
+  movieFormat(movie) {
+    return new MessageEmbed()
+      .setColor("#0d253f")
+      .setTitle(movie.original_title)
+      .addFields({ name: "Release Date", value: movie.release_date, inline: true }, { name: "Popularity", value: `${movie.vote_average} / 10`, inline: true })
+      .setThumbnail(`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`)
+      .setDescription(movie.overview);
+  },
 };
