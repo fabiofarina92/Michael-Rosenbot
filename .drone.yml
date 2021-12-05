@@ -3,8 +3,7 @@ name: default
 
 steps:
   - name: test
-    image: node
+    image: node:12-alpine
     commands:
-      - npm i node-gyp
       - npm install
       - npm test
