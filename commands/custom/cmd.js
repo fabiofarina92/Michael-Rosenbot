@@ -21,6 +21,14 @@ module.exports = {
             signale.info("Command `%s` already exists", command);
             message.channel.send(`Command \`${command}\` already exists!`);
           } else {
+            if (!result) {
+              message.channel.send(`Please supply a result parameter`);
+              return;
+            }
+            if (result.length > 2000) {
+              message.channel.send("Result must be less than 2000 characters (emojis are long btw)");
+              return;
+            }
             signale.info("Creating command: `%s`", command);
             config.commandDB.get("customCommands").push({ command, result }).write();
             config.commands.set(command, {
@@ -46,14 +54,16 @@ module.exports = {
         default:
           break;
       }
+    } else {
+      message.channel.send(`\`${action}\` not a valid action for \`cmd\`. Fuck off, Josh.`);
     }
   },
 };
 
 function parseArguments(args) {
-  action = args[0];
-  command = args[1];
-  result = args.slice(2).join(" ");
+  let action = args[0];
+  let command = args[1];
+  let result = args.slice(2).join(" ");
 
   return { action, command, result };
 }

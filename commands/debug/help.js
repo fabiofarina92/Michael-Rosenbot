@@ -13,12 +13,12 @@ module.exports = {
         }
       }
       if (commandString.length > 1000) {
-        message.channel.send(commandString);
-        commandString = '';
+        message.author.send(commandString);
+        commandString = "";
       }
     });
 
-    message.channel.send(commandString);
+    message.author.send(commandString);
   },
 };
 

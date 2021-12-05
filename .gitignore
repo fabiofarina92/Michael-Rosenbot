@@ -70,3 +70,5 @@ secrets.json
 .idea
 
 data/*.json
+data/*/data
+data/*/config.json

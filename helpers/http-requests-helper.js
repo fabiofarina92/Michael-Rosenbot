@@ -40,6 +40,9 @@ module.exports = {
   async sendAsyncGet(endPoint) {
     return await axios.get(endPoint);
   },
+  async sendAsyncGetWithHeaderAndBody(endPoint, headers) {
+    return await axios.get(endPoint, headers);
+  },
   async sendAsyncPost(endPoint, data) {
     return await axios.post(endPoint, data);
   },

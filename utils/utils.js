@@ -1,3 +1,4 @@
+const fs = require("fs");
 module.exports = {
   shuffle(array) {
     let currentIndex = array.length,

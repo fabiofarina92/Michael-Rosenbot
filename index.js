@@ -7,6 +7,7 @@ const signale = require("./helpers/logger");
 const low = require("lowdb");
 const FileSync = require("lowdb/adapters/FileSync");
 const embedFormatter = require("./utils/embed-formatter");
+const { getConfig } = require("./helpers/server-config");
 
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS],
@@ -48,11 +49,13 @@ client.on("messageReactionAdd", async (reaction, user) => {
     }
   }
 
-  if (reaction.message.channel === configuration.PINS_CHANNEL) return;
+  let pinChannel = getConfig(config, reaction.message.guild.id, "pinChannel").replaceAll("<#", "").replaceAll(">", "");
+
+  if (reaction.message.channel === pinChannel) return;
   if (user.username === "prae" || user.username === "jahoo" || user.username === "rgrwco" || user.username === "Dezine") {
     if (reaction.emoji.name === "📌") {
-      // client.channels.cache.get('894783602708070460').send(embed);
-      client.channels.cache.get("894793988580716564").send(embedFormatter.pinFormat(reaction.message));
+      if (reaction.message.reactions.cache.get("📌").count > 1) return;
+      client.channels.cache.get(pinChannel).send(embedFormatter.pinFormat(reaction.message));
     }
   }
 });
@@ -81,6 +84,23 @@ const customCommandAdapter = new FileSync("./data/custom_commands.json");
 const commandDB = low(customCommandAdapter);
 commandDB.defaults({ customCommands: [] }).write();
 config.commandDB = commandDB;
+
+config.guildConfig = {};
+
+client.on("ready", () => {
+  client.user.setUsername("Michael Rosen");
+  client.user.setActivity("with hot food");
+  client.guilds.cache.forEach((guild) => {
+    const configDataAdapter = new FileSync(`./data/${guild.id}/config.json`);
+    const configDB = low(configDataAdapter);
+    configDB.defaults({ id: guild.id }).write();
+    config.guildConfig[guild.id] = configDB;
+
+    if (!fs.existsSync(`./data/${guild.id}/data`)) {
+      fs.mkdirSync(`./data/${guild.id}/data`, { recursive: true });
+    }
+  });
+});
 
 commandDB
   .get("customCommands")
@@ -112,8 +132,13 @@ client.on("message", (message) => {
       message.react("🖕");
     }
   }
-  client.user.setUsername("Michael Rosen");
-  client.user.setActivity("with hot food");
+  if (message.author.id === configuration.LUKE) {
+    if (rnd1to100 <= 1) {
+      message.react("👑");
+      message.react("⛽");
+      message.react("💡");
+    }
+  }
   config.commands = client.commands;
   if (!message.content.match(configuration.PREFIXMATCH) || message.author.bot) return;
   signale.info(message.content);
