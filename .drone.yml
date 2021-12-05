@@ -6,4 +6,5 @@ steps:
     image: node
     commands:
       - npm install
+      - npm i node-gyp
       - npm test
