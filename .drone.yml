@@ -3,7 +3,7 @@ name: default
 
 steps:
   - name: test
-    image: node, python
+    image: python3.10-nodejs17
     commands:
       - npm install
       - npm test
