@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { MessageAttachment, MessageEmbed } = require("discord.js");
 const signale = require("../helpers/logger");
 module.exports = {
   songFormat(song) {
@@ -52,5 +52,19 @@ module.exports = {
       .addFields({ name: "Release Date", value: movie.release_date, inline: true }, { name: "Popularity", value: `${movie.vote_average} / 10`, inline: true })
       .setThumbnail(`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`)
       .setDescription(movie.overview);
+  },
+
+  binFormat(suburb) {
+    const attachment = new MessageAttachment("./assets/bin.jpg", "bin.jpg");
+    return new MessageEmbed()
+      .setColor("#0fff1b")
+      .setTitle(suburb.suburb)
+      .addFields(
+        { name: "Garbage Bin", value: suburb.garbage_pickup_date, inline: true },
+        { name: "Recycling Bin", value: suburb.recycling_pickup_date, inline: true },
+        { name: "Greenwaste Bin", value: suburb.next_greenwaste_date, inline: true }
+      )
+      .attachFiles(attachment)
+      .setThumbnail("attachment://bin.jpg");
   },
 };

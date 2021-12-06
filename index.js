@@ -67,7 +67,7 @@ const config = {};
 config.songQueue = [];
 config.guilds = client.guilds.cache;
 
-const cmdDirs = ["base", "debug", "music", "personal", "custom", "crypto", "suggest"];
+const cmdDirs = ["base", "debug", "music", "personal", "custom", "crypto", "suggest", "translate"];
 
 cmdDirs.forEach((dir) => {
   for (const file of fs.readdirSync(`./commands/${dir}`)) {
