@@ -16,7 +16,7 @@ steps:
       key:
         from_secret: ssh_key
       target: /home/arthas/staging/michael-rosenbot
-      source: *
+      source: "*"
   - name: ssh
     image: appleboy/drone-ssh
     settings:
