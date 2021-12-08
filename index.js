@@ -80,10 +80,32 @@ cmdDirs.forEach((dir) => {
   }
 });
 
+let commandDB = null;
+
+if (!fs.existsSync("./data/")) {
+  fs.mkdirSync("./data/");
+}
+if (!fs.existsSync("./data/custom_commands.json")) {
+  fs.writeFileSync("./data/custom_commands.json", "");
+}
 const customCommandAdapter = new FileSync("./data/custom_commands.json");
-const commandDB = low(customCommandAdapter);
+commandDB = low(customCommandAdapter);
 commandDB.defaults({ customCommands: [] }).write();
 config.commandDB = commandDB;
+
+commandDB
+  .get("customCommands")
+  .value()
+  .forEach((customCommand) => {
+    if (!client.commands.has(customCommand.command)) {
+      client.commands.set(customCommand.command, {
+        name: customCommand.command,
+        execute(config, message, args) {
+          message.channel.send(customCommand.result);
+        },
+      });
+    }
+  });
 
 config.guildConfig = {};
 
@@ -101,20 +123,6 @@ client.on("ready", () => {
     }
   });
 });
-
-commandDB
-  .get("customCommands")
-  .value()
-  .forEach((customCommand) => {
-    if (!client.commands.has(customCommand.command)) {
-      client.commands.set(customCommand.command, {
-        name: customCommand.command,
-        execute(config, message, args) {
-          message.channel.send(customCommand.result);
-        },
-      });
-    }
-  });
 
 client.on("message", (message) => {
   if (message.author.bot) return;

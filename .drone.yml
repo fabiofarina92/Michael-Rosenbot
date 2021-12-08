@@ -26,5 +26,5 @@ steps:
         from_secret: ssh_key
       script:
       - pwd
-      - ls /home/arthas/staging/michael-rosenbot
+      - cp ~/secrets.json ~/staging/michael-rosenbot
 
