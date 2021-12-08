@@ -1,10 +1,10 @@
 kind: pipeline
 name: default
+type: docker
 
 steps:
   - name: test
     image: node
     commands:
-      - npm install canvas
       - npm install
       - npm test
