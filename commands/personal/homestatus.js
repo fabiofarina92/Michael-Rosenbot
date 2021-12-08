@@ -56,7 +56,9 @@ module.exports = {
             }
           });
         });
-        responseList = responseList.concat("Fridge mode: `sexy`");
+        let fridgeStates = ["sexy", "moist", "warm", "ready for action"];
+        let fState = fridgeStates[Math.floor(Math.random() * fridgeStates.length)];
+        responseList = responseList.concat(`Fridge mode: \`${fState}\``);
         message.channel.send(responseList);
       })
       .catch((error) => {
