@@ -7,5 +7,6 @@ COPY package.json /usr/src/michael-rosenbot
 RUN npm install
 
 COPY . /usr/src/michael-rosenbot
+VOLUME /data
 
 CMD ["node", "index.js"]
