@@ -113,6 +113,10 @@ client.on("ready", () => {
   client.user.setUsername("Michael Rosen");
   client.user.setActivity("with hot food");
   client.guilds.cache.forEach((guild) => {
+    if (!fs.existsSync(`./data/${guild.id}`)) {
+      fs.mkdirSync(`./data/${guild.id}`);
+      fs.writeFileSync(`./data/${guild.id}/config.json`, "{}");
+    }
     const configDataAdapter = new FileSync(`./data/${guild.id}/config.json`);
     const configDB = low(configDataAdapter);
     configDB.defaults({ id: guild.id }).write();
