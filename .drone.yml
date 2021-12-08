@@ -8,7 +8,8 @@ steps:
     commands:
       - npm install
       - npm test
-  - name: publish
+
+  - name: deploy
     image: appleboy/drone-scp
     settings:
       host: 192.168.0.197
@@ -17,7 +18,8 @@ steps:
         from_secret: ssh_key
       target: /home/arthas/staging/michael-rosenbot
       source: "*"
-  - name: ssh
+
+  - name: run
     image: appleboy/drone-ssh
     settings:
       host: 192.168.0.197
@@ -25,6 +27,10 @@ steps:
       key:
         from_secret: ssh_key
       script:
-      - pwd
       - cp ~/secrets.json ~/staging/michael-rosenbot
+      - cd ~/staging/michael-rosenbot
+      - docker build -t michael-rosenbot .
+      - docker stop michael-rosenbot
+      - docker container rm michael-rosenbot
+      - docker run -d --name michael-rosenbot -v data:/data michael-rosenbot
 
