@@ -32,5 +32,5 @@ steps:
       - docker build -t michael-rosenbot .
       - docker stop michael-rosenbot
       - docker container rm michael-rosenbot
-      - docker run -d --name michael-rosenbot -v data:/data michael-rosenbot
+      - docker run -d --name michael-rosenbot --mount source=mr-data,destination=/usr/src/michael-rosenbot/data michael-rosenbot
 
