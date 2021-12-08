@@ -29,6 +29,7 @@ steps:
       script:
       - cp ~/secrets.json ~/staging/michael-rosenbot
       - cd ~/staging/michael-rosenbot
+      - mkdir ~/staging/michael-rosenbot/data
       - docker build -t michael-rosenbot .
       - docker stop michael-rosenbot
       - docker container rm michael-rosenbot
