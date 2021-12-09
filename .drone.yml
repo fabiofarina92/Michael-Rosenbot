@@ -18,6 +18,8 @@ steps:
         from_secret: ssh_key
       target: /home/arthas/staging/michael-rosenbot
       source: "*"
+      when:
+        branch: master
 
   - name: run
     image: appleboy/drone-ssh
@@ -34,4 +36,6 @@ steps:
       - docker stop michael-rosenbot
       - docker container rm michael-rosenbot
       - docker run -d --name michael-rosenbot -v mr-data:/usr/src/michael-rosenbot/data michael-rosenbot
+      when:
+        branch: master
 
