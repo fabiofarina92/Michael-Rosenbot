@@ -12,7 +12,12 @@ steps:
   - name: deploy
     image: appleboy/drone-scp
     when:
-      branch: master
+      branch:
+        include:
+          - master
+      event:
+        exclude:
+          - pull_request
     settings:
       host: 192.168.0.197
       user: arthas
@@ -24,7 +29,12 @@ steps:
   - name: run
     image: appleboy/drone-ssh
     when:
-      branch: master
+      branch:
+        include:
+          - master
+      event:
+        exclude:
+          - pull_request
     settings:
       host: 192.168.0.197
       user: arthas
