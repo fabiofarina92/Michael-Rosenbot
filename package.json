@@ -28,7 +28,7 @@
     "ffmpeg-static": "^4.4.0",
     "inquirer": "^7.3.3",
     "lowdb": "^1.0.0",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "node-opus": "^0.3.3",
     "request": "^2.88.2",
     "signale": "^1.4.0",
